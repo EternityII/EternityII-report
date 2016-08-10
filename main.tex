@@ -1,0 +1,62 @@
+\documentclass{article}
+\include{_config}
+
+%====================== INFORMATION PDF======================
+
+\hypersetup{												% Information sur le document
+	pdfauthor = {Fati CHEN},								% Auteurs
+	pdftitle = {Ouvertures et Finales d'Eternity II},		% Titre du document
+	pdfsubject = {Rapport de Projet},						% Sujet
+	pdfkeywords = {Eternity II, rapport de projet, LIRMM},	% Mots-clefs
+	pdfstartview={FitH}										% ajuste la page à la largueur de l'écran
+	pdfcreator = {MikTeX},									% Logiciel qui a crée le document
+	pdfproducer = {Eternithug}}								% Société avec produit le logiciel
+
+
+%======================== DEBUT DU DOCUMENT ========================
+\begin{document}
+	
+	%__ Listes
+	\renewcommand{\labelitemi}{$\bullet$}
+	\renewcommand{\labelitemii}{$\cdot$}
+	\renewcommand{\labelitemiii}{$\diamond$}
+	\renewcommand{\labelitemiv}{$\ast$}
+	
+	%__ régler l'espacement entre les lignes
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+	
+	%========================= Debut du texte =========================
+	
+	\include{title}
+	
+	\section{Introduction}
+	
+	\section{Eternity II}
+	\subsection{Le jeu}
+	
+	Eternity II est un jeu sorti en 2008 qui repose sur un principe assez simple, c'est un puzzle de 16 par 16 qu'il faut réassembler. Il est composé de 256 pièces carrés, qui ont, sur chaque arête une couleur donnée. [images tt ca tt ca]. Afin de pouvoir assembler le puzzle, il suffit placer les pièces de façon à ce que les faces adjacentes soient de même couleur. Comme un puzzle classique, il y a des pièces de coin et de bord. Ceux-ci sont reconnaissables car ils possèdent une ou deux arêtes grises. Par contre, la où ca devient complexe, c'est qu'une pièce n'as pas une place prédéterminée (comme dans un puzzle), c'est à dire qu'elle peux se situer n'importe où sur le plateau. 
+	
+	\subsection{Le défi}
+	
+	A ce jour, personne n'a réussi à résoudre ce puzzle (même grâce à l'aide de supercalculateurs) malgré les différentes stratégies mise en place. Pourquoi ? Car derrière ce jeu anodin se cache l'un des plus grand problème du monde actuel : les problèmes NP-difficiles. Ceux-ci sont fait de tel sorte que même en connaissant leur structure ou fonctionnement, il est pratiquement impossible d'en déduire un algorithme de résolution. L'une des solutions les plus fiables à ce jour est de tester tout les cas possible (qui est évidemment très important).
+	
+	\begin{exmp}
+		Le nombre de combinaisons pour Eternity II s'élève à $10^{545}$, c'est à dire environ $10^{450}$ fois le nombre d'atomes dans l'univers connu (estimé à au plus $10^{80}$) !!!
+	\end{exmp}
+	
+	\subsection{La recette secrète d'Eternity II}
+	
+	Pour rendre ce problème combinatoire, il est nécessaire de respecter plusieurs conditions.
+	
+	\begin{description}
+		\item[Chaque pièce est unique] l'unicité des pièces est importante, car si une pièce est en double, cela veux dire que la pièce peux être placée à deux endroits différents (ce qui simplifie le problème)
+		\item[Le ratio de nombre de couleurs par nombre de pièces est calculé] [joindre graphique tt ca tt ca] : il faut qu'il y ait assez de couleur pour que chaque pièce soit unique, mais pas assez pour que l'on puisse déterminer les pièces adjacentes
+		
+		\begin{exmp}
+			Supposons qu'il y ait trop de couleurs. Cela veux dire qu'une pièce à peu de voisins ( car chaque pièce est unique par conséquent les couleurs sont distribués uniformément à travers les pièces), si la pièce à très peu de voisins, je peux déduire des groupement de pièces assez facilement.
+			
+			Donc je simplifie mon problème.
+		\end{exmp}		
+	\end{description}
+
+\end{document}

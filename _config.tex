@@ -1,0 +1,60 @@
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+%====================== PACKAGES ======================
+%pour gérer les positionnement d'images
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{url}
+%pour les informations sur un document compilé en PDF et l\section{}es liens externes / internes
+\usepackage{hyperref}
+%pour la mise en page des tableaux
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[thinlines]{easytable}
+%pour utiliser \floatbarrier
+%\usepackage{placeins}
+%\usepackage{floatrow}
+%espacement entre les lignes
+\usepackage{setspace}
+%modifier la mise en page de l'abstract
+\usepackage{fancyhdr}
+\usepackage{abstract}
+%police et mise en page (marges) du document
+
+\usepackage{pdfpages}
+
+\usepackage{csquotes}
+%Code source
+\usepackage{listingsutf8}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+%Pour les galerie d'images
+\usepackage{subfig}
+
+% Glossaire
+\usepackage[xindy]{glossaries}	% Ensures that all acronyms are defined once
+\makeglossaries
+
+\pagestyle{fancy}
+\headheight=14.62pt
+
+%% Mise en page des théorèmes, lemme etc...
+\theoremstyle{plain}
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lemme}[thm]{Lemme}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollaire}
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Exemple}[section]
+\theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Cas particulier}
+
+\renewcommand{\floatpagefraction}{0.95}
+\renewcommand{\textfraction}{0.05}
