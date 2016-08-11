@@ -53,10 +53,61 @@
 		\item[Le ratio de nombre de couleurs par nombre de pièces est calculé] [joindre graphique tt ca tt ca] : il faut qu'il y ait assez de couleur pour que chaque pièce soit unique, mais pas assez pour que l'on puisse déterminer les pièces adjacentes
 		
 		\begin{exmp}
-			Supposons qu'il y ait trop de couleurs. Cela veux dire qu'une pièce à peu de voisins ( car chaque pièce est unique par conséquent les couleurs sont distribués uniformément à travers les pièces), si la pièce à très peu de voisins, je peux déduire des groupement de pièces assez facilement.
+			Supposons qu'il y ait trop de couleurs. Cela veux dire qu'une pièce à peu de voisins ( car chaque pièce est unique, par conséquent les couleurs sont distribués uniformément à travers les pièces), si la pièce à très peu de voisins, je peux déduire des groupement de pièces assez facilement.
 			
 			Donc je simplifie mon problème.
 		\end{exmp}		
 	\end{description}
+	
+	\subsection{Etat de l'art}
+	
+	Nombreux sont ceux qui ont essayé de résoudre le problème... plusieurs moyens ont été mis en place, grâce au solveur SAT (solveur de satisfiabilité booléenne dont le fonctionnement est assez complexe pour ne pas être abordé ici), par une approche graphe ou encore par bruteforce.
+	
+	Il est estimé que actuellement, l'approche la plus performante est la résolution par bruteforce, car c'est elle qui est la plus rapide.
+	
+	\section{Sujet / problématique}
+	
+	Le but du stage est donc de déterminer si, malgré les dires, on ne pourrait pas trouver une méthode de résolution plus efficace que la bruteforce, qui repose sur une grande quantité d'information pré-calculées, cette méthode est appellée smartforce par la suite.
+	
+	Ces informations pré-calculées serviront différentes causes, mais deux objectifs principaux peuvent en être explicités :
+	
+	\begin{itemize}
+		\item les ouvertures
+		\item les finales
+	\end{itemize}
+	
+	Afin de comprendre le principe des ouvertures et des finales, il est important de pouvoir se représenter un arbre de possibilités où chaque branche de l'arbre est une combinaison spécifique. [là faut une bonne image explicite]
+	
+	\subsection{Ouvertures}
+	
+	Le but des ouvertures, est de pré-calculer jusqu'à un certain niveau toutes les combinaisons possibles, et de les stocker. Cela permet par la suite, de pouvoir paralléliser les calculs afin de tester plusieurs sous instances du problème
+	
+	\subsection{Finales}
+	
+	De la même façon, pré-calculer les fins possibles permet de connaitre plus rapidement si la combinaison actuelle est possible ou non.
+	
+	
+	\subsection{Difficultés préliminaires}
+	
+	afin de résoudre le problème, la principale difficulté c'est que le jeu de base est trop complexe et ne permet pas de déterminer si l'approche actuelle est adapté. Par conséquent, on utilisera des instances d'Eternity II, qui sont des plateaux de plus petite taille (4x4, 5x5 ...) qui ont les mêmes propriétés que le jeu de base.
+	
+	\section{Approche}
+
+	Dans cette partie, nous expliquerons quels sont les différents outils et stratégies mis en place pour permettre la résolution du problème.
+	Dans un premier temps nous avons eu besoin de mettre en place une valeur étalon, qui nous permet de savoir si les differentes méthodes de smartforce sont bonnes ou pas. Cette valeur étalon est un programme de bruteforce qui nous fournit le nombre total de noeuds, le nombre de solution, le nombre de noeuds à la premiere solution et les tous les timers correspondant.
+	
+	\subsection{Bruteforce}
+	
+	\subsection{Corolles}
+	
+	\subsection{CaPi}
+	
+	\subsection{BoCo}
+	
+	\subsection{BoCoDiag}
+	
+	\section{Manuel d'utilisation}
+	
+	\section{Manuel Technique}
 
 \end{document}
