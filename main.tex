@@ -65,6 +65,8 @@
 	
 	Il est estimé que actuellement, l'approche la plus performante est la résolution par bruteforce, car c'est elle qui est la plus rapide.
 	
+	[à développer]
+	
 	\section{Sujet / problématique}
 	
 	Le but du stage est donc de déterminer si, malgré les dires, on ne pourrait pas trouver une méthode de résolution plus efficace que la bruteforce, qui repose sur une grande quantité d'information pré-calculées, cette méthode est appellée smartforce par la suite.
@@ -98,13 +100,58 @@
 	
 	\subsection{Bruteforce}
 	
-	\subsection{Corolles}
+	Afin de pouvoir partir sur de bonnes bases, plusieurs différents méthodes de parcours (quel chemin prendre pour résoudre mon plateau) ont été utilisé, afin de voir quel parcours est le plus performant pour la résolution brute. En sachant que le nombre de noeuds/sec est la même, l'unité de mesure est le nombre de noeuds.
 	
-	\subsection{CaPi}
+	Les differents types de parcours sont :
 	
-	\subsection{BoCo}
+	\begin{description}
+		\item[rowscan] on pose les pieces en lignes horizontales sur le plateau
+		\item[diagonal] on pose les pieces en diagonal
+		\item[spiral in] on dispose les pièces en spirale en partant de l'exterieur [image]
+		\item[spiral out] idem que spiral in mais en partant de l'interieur vers l'exterieur
+	\end{description}
 	
-	\subsection{BoCoDiag}
+	Ces différents types de parcours ont été testés sur plusieurs instances de taille variable. 
+	
+	\subsection{Smartforce}
+	
+	Une fois la valeur étalon fixée, il est maintenant facile de mettre en place un autre approche du problème qui à pour principe de cumuler une grande quantité de donnée pour faire face au nombre exponentiel de possibilités.
+	
+	Les différents types de données (nommés modèles) sont comme différents points de vues du problème. Ils sont plus ou moins utiles, mais la force réside dans leur union. Mais surtout, ils permettent de mettre en place le concept d'ouvertures et finales.
+	
+	\subsubsection{CaPi}
+	
+	L'approche CaPi (abbréviation de Cases/pieces) est l'approche la plus naive, elle permet de définir quelle piece peut être placée sur telle case et inversement, quelle case peux avoir telle piece.
+	
+	Cette approche est l'interaction la plus basique de notre problème. C'est aussi celle-ci qui est utilisée en bruteforce.
+	
+	\subsubsection{BoCo}
+	
+	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces. 
+	
+	\begin{exmp}
+		Si une couleur disparait, alors tt les pièces ayant cette couleur ne peuvent plus être placés à cette case, par conséquent, les autres bords de la case ont (probablement) des couleurs qui disparaissent aussi (propagation de la disparition).
+	\end{exmp}
+	
+	\subsubsection{Corolles}
+	
+	Grace aux visions CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
+	
+	Le nombre de cas possible étant très important, il est nécessaire de le classer. Les corolles peuvent êtres identifiés grâce à plusieurs critères.
+	
+	\begin{itemize}
+		\item taille du plateau
+		\item l'orientation de la corolle
+		\item La pièce (et sa rotation) à l'origine de la corolle
+		\item La case à l'origine de la corolle
+		\item La taille de la corolle
+	\end{itemize}
+	
+	\paragraph{}
+
+	\subsubsection{BoCoDiag}
+	
+	\section{Resultat}
 	
 	\section{Manuel d'utilisation}
 	
