@@ -2,9 +2,9 @@
 	\subsection{Les origines}
 	--- [réel]
 	
-	EternityII est le fier successeur de Eternity.
+	Eternity II est le fier successeur de Eternity.
 	
-	La première version [image](photo de la première version), sortie en 1999, était composée de 159 pièces de différentes formes, cependant ces formes peuvent être décomposés en formes de trianges equilatéraux (ou leur moitié) qui devaient être placés sur un plateau octogonal. 
+	La première version sortie en 1999, était composée de 159 pièces de différentes formes, cependant ces formes peuvent être décomposés en formes de trianges equilatéraux (ou leur moitié) qui devaient être placés sur un plateau octogonal. 
 	
 	\begin{figure}[H]
 		\minipage{0.65\textwidth}
@@ -20,15 +20,15 @@
 	Son point faible se trouvaient dans la disposition de ces pièces sur le plateau : il était possible de précalculer des régions, puis de les comparer entre eux afin d'en dégager une solution.
 	De cette facon, le puzzle fut résolu en à peine un an (contrairement aux 3 ans prévus par le créateur), par deux mathématiciens, qui ont ainsi empoché la récompense s'élevant à $1000000\pounds$.
 	
-	Après cet \enquote{echec}, Christopher Monckton, le créateur d'Eternity, décide en 2008 de sortir une deuxième version, bien plus complexe avec à la clé $2000000\textdollar$ pour celui qui arriverait à la résoudre au bout de deux ans.
+	Après cet \enquote{echec}, Christopher Monckton, le créateur d'Eternity, décide en 2008 de sortir une deuxième version, bien plus complexe avec à la clé $2000000$\textdollar pour celui qui arriverait à la résoudre au bout de deux ans.
 	
 	\begin{figure}[H]
 		\includegraphics[width=\linewidth]{images/eternity_2.jpg}
-		\caption{La boite et les pièces d'EternityII}
+		\caption{La boite et les pièces d'Eternity II}
 		\label{fig:eternity_2}
 	\end{figure}
 	
-	C'est un puzzle de 16 par 16 qui sort sous le nom d'EternityII. Ce puzzle est composé de 256 pièces carrés, qui ont chacune 4 faces colorés (ou un demi motif).
+	C'est un puzzle de 16 par 16 qui sort sous le nom d'Eternity II. Ce puzzle est composé de 256 pièces carrés, qui ont chacune 4 faces colorés (ou un demi motif).
 	
 	Ces pièces peuvent être classés en trois catégories suivant le nombre de faces grises qu'elles possèdent :
 	
@@ -47,7 +47,15 @@
 	   	\endminipage
 	\end{figure}
 
-	Les pièces ne possèdent pas de formes comme dans un puzzle classique. Afin de les faire correspondre l'une avec l'autre, il est nécessaire que les faces adjacentes de chaque pièce voisine soient de la même couleur. Par conséquent, la pièce peut être placée n'importe ou sur le plateau car son placement dépends des couleurs des pièces d'à côté, de plus, les pièces n'ont pas d'orientation prédéterminés (elle peut être rotationnée).
+	Les pièces ne possèdent pas de formes comme dans un puzzle classique. Afin de les faire correspondre l'une avec l'autre, il est nécessaire que les faces adjacentes de chaque pièce voisine soient de la même couleur, dés lors les pièces \enquote{matchent} \ref{fig:matching}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics{images/matching_pieces.png}
+		\caption{Deux pièces correctement placés (matchés)}\label{fig:matching}
+	\end{figure}
+	
+	Par conséquent, la pièce peut être placée n'importe ou sur le plateau car son placement dépend des couleurs des pièces d'à côté, de plus, les pièces n'ont pas d'orientation prédéterminés (elles peuvent être rotationnée).
 	
 	Pour résumer, la plupart des pièces peuvent être posés n'importe où sur le plateau à différentes rotation car la position dépends entièrement des pièces adjacentes posés auparavant. 
 	
@@ -61,7 +69,7 @@
 	\subsection{Le défi}
 	--- [réel]
 	
-	Malgré le fait que la récompense à expiré le 31 décembre de l'année 2010, le problème et l'enthousiasme qu'a engendré EternityII ne s'est pas calmé pour autant (enfin si, un peu). Car loin d'être juste un jeu avec une importante cagnotte il recel en son c\oe ur des secrets d'une certaine valeur.
+	Malgré le fait que la récompense à expiré le 31 décembre de l'année 2010, le problème et l'enthousiasme qu'a engendré Eternity II ne c'est pas calmé pour autant (enfin si\dots un peu). Car loin d'être juste un jeu avec une importante cagnotte il recel en son c\oe ur des secrets d'une certaine valeur.
 	
 	En effet, jusqu'à maintenant, personne n'a réussi à résoudre ce puzzle, même pas effleuré la solution, malgré l'aide de supercalculateurs et de nombreux spécialistes, que ce soient des mathématiciens ou des informaticiens.
 	
@@ -79,7 +87,28 @@
 		Le nombre de combinaisons pour Eternity II s'élève à $10^{545}$, c'est à dire environ $10^{450}$ fois le nombre d'atomes dans l'univers connu (estimé à au plus $10^{80}$) !!!
 	\end{exmp}
 	
-	\subsection{La recette secrète d'Eternity II}
+	\subsection{Les II lois d'Eternity II}
+	
+	--- [réel]
+	
+	Pour rendre Eternity II complexe et combinatoire, il est nécessaire de respecter les deux lois d'Eternity II :
+	
+	\begin{law}
+		\textbf{Chaque pièce est unique}
+		
+		L'unicité des pièces est indispensable pour complexifier le problème, car sinon, on peux considérer qu'une pièce peux être placée à plusieurs endroits, en fonction du nombre de \enquote{clones} qu'elle possède. Ce qui réduit grandement l'espace de recherche [de la solution].
+	\end{law}
+
+	\begin{law}
+		\textbf{La quantité de couleurs et de pièces est finement calculée}
+		
+		En effet, si l'on augmente le nombre de couleurs, on obtient des couplage uniques : une pièce ne peux être couplée qu'avec une autre pièce (ou dans le meilleur des cas limite le couplage des pièces). A l'inverse, si il n'y a pas assez de couleurs, on obtient des doublons, les pièces ne sont plus uniques, ce qui va à l'encontre de la première loi.
+		
+		Par ailleurs, certaines couleurs sont exclusives aux pièces de coin et de bord, car ceux-ci étant liés en eux mais seulement sur le périmètre extérieur du plateau il est nécessaire d'ajouter des couleurs supplémentaires tenant compte qu'ils n'ont que 2 ou 3 faces disponibles (le reste étant des faces grises).
+	\end{law}
+	
+	
+	--- [résumé]
 	
 	Pour rendre ce problème combinatoire, il est nécessaire de respecter plusieurs conditions.
 	
@@ -93,11 +122,3 @@
 			Donc je simplifie mon problème.
 		\end{exmp}		
 	\end{description}
-	
-	\subsection{Etat de l'art}
-	
-	Nombreux sont ceux qui ont essayé de résoudre le problème... plusieurs moyens ont été mis en place, grâce au solveur SAT (solveur de satisfiabilité booléenne dont le fonctionnement est assez complexe pour ne pas être abordé ici), par une approche graphe ou encore par bruteforce.
-	
-	Il est estimé que actuellement, l'approche la plus performante est la résolution par bruteforce, car c'est elle qui est la plus rapide.
-	
-	[à développer]
