@@ -1,3 +1,6 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = fr_FR
+
 \documentclass{article}
 \include{_config}
 
@@ -15,114 +18,88 @@
 
 %======================== DEBUT DU DOCUMENT ========================
 \begin{document}
-	
+
 	%__ Listes
 	\renewcommand{\labelitemi}{$\bullet$}
 	\renewcommand{\labelitemii}{$\cdot$}
 	\renewcommand{\labelitemiii}{$\diamond$}
 	\renewcommand{\labelitemiv}{$\ast$}
-	
+
 	%__ régler l'espacement entre les lignes
 	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-	
+
 	%========================= Debut du texte =========================
-	
+
 	\include{title}
-	
+
 	\section{Introduction}
-	
+
 	Les puzzles et casses-têtes nous ont toujours passionnés, pour faire passer le temps ou pour se mettre des défis. Eternity II est un de ces jeux où le principe peux être compris par tous, mais pourtant sa résolution est extrêmement complexe. Ce genre de paradigme est à l'heure actuelle l'un des problèmes mathématiques qui régit notre monde, car la plupart des systèmes informatiques et méthodes de chiffrement reposent sur ce genre de problème (simple à faire mais pourtant trouver la solution ne l'est pas).
-	
+
 	Eternity II n'est résoluble à l'heure actuelle qu'en testant toutes les combinaisons (bruteforce). Ce qui nous fait poser une question importante, comment, avec l'augmentation exponentielle des données et des nouvelles technologies, sommes nous réduit à utiliser une méthode aussi simple.
-	Par extension, est-il plus efficace d'accumuler des données afin de le résoudre plutôt qu'essayer d'accélérer la résolution basique. 
-	
+	Par extension, est-il plus efficace d'accumuler des données afin de le résoudre plutôt qu'essayer d'accélérer la résolution basique.
+
 	Dans un premier temps, nous verrons les origines du jeu, la difficulté à laquelle nous sommes confrontés et l'état de l'art des méthodes de résolutions.
-	
+
 	Ensuite, nous présenterons la problématique, ce qui à déjà tout au long de l'année et l'approche initiale du problème.
-	
+
 	Pour conclure, les résultats et réflexions qui peuvent en être tirés.
-	
+
 	Par ailleurs, ce compte rendu comporte un manuel d'utilisation et un manuel technique fourni, car les application développées, ou tout du moins leur logique est destinée à être réutilisés ou améliorés.
-	
-	
+
+
 	\newpage
 	\include{eternity2}
-	
+
 	\newpage
-	\include{state_of_art}
-	
-	\section{Sujet / problématique}
-	
-	Le but du stage est donc de déterminer si, malgré les dires, on ne pourrait pas trouver une méthode de résolution plus efficace que la bruteforce, qui repose sur une grande quantité d'information pré-calculées, cette méthode sera appelée smartforce par la suite.
-	
-	Ces informations pré-calculées serviront différentes causes, mais deux objectifs principaux peuvent en être explicités :
-	
-	\begin{itemize}
-		\item les ouvertures
-		\item les finales
-	\end{itemize}
-	
-	Afin de comprendre le principe des ouvertures et des finales, il est important de pouvoir se représenter un arbre de possibilités où chaque branche de l'arbre est une combinaison spécifique. [là faut une bonne image explicite]
-	
-	\subsection{Ouvertures}
-	
-	Le but des ouvertures, est de pré-calculer jusqu'à un certain niveau toutes les combinaisons possibles, et de les stocker. Cela permet par la suite, de pouvoir paralléliser les calculs afin de tester plusieurs sous instances du problème
-	
-	\subsection{Finales}
-	
-	De la même façon, pré-calculer les fins possibles permet de connaitre plus rapidement si la combinaison actuelle est possible ou non.
-	
-	
-	\subsection{Difficultés préliminaires}
-	
-	Afin de résoudre le problème, la principale difficulté c'est que le jeu de base est trop complexe et ne permet pas de déterminer si l'approche actuelle est adapté. Par conséquent, on utilisera des instances d'Eternity II, qui sont des plateaux de plus petite taille (4x4, 5x5 ...) qui ont les mêmes propriétés que le jeu de base.
-	
+	\include{problematique}
+
 	\section{Approche}
 
 	Dans cette partie, nous expliquerons quels sont les différents outils et stratégies mis en place pour permettre la résolution du problème.
 	Dans un premier temps nous avons eu besoin de mettre en place une valeur étalon, qui nous permet de savoir si les differentes méthodes de smartforce sont bonnes ou pas. Cette valeur étalon est un programme de bruteforce qui nous fournit le nombre total de noeuds, le nombre de solution, le nombre de noeuds à la premiere solution et les tous les timers correspondant.
-	
+
 	\subsection{Bruteforce}
-	
+
 	Afin de pouvoir partir sur de bonnes bases, plusieurs différents méthodes de parcours (quel chemin prendre pour résoudre mon plateau) ont été utilisé, afin de voir quel parcours est le plus performant pour la résolution brute. En sachant que le nombre de noeuds/sec est la même, l'unité de mesure est le nombre de noeuds.
-	
+
 	Les differents types de parcours sont :
-	
+
 	\begin{description}
 		\item[rowscan] on pose les pieces en lignes horizontales sur le plateau
 		\item[diagonal] on pose les pieces en diagonal
 		\item[spiral in] on dispose les pièces en spirale en partant de l'exterieur [image]
 		\item[spiral out] idem que spiral in mais en partant de l'interieur vers l'exterieur
 	\end{description}
-	
-	Ces différents types de parcours ont été testés sur plusieurs instances de taille variable. 
-	
+
+	Ces différents types de parcours ont été testés sur plusieurs instances de taille variable.
+
 	\subsection{Smartforce}
-	
+
 	Une fois la valeur étalon fixée, il est maintenant facile de mettre en place un autre approche du problème qui à pour principe de cumuler une grande quantité de donnée pour faire face au nombre exponentiel de possibilités.
-	
+
 	Les différents types de données (nommés modèles) sont comme différents points de vues du problème. Ils sont plus ou moins utiles, mais la force réside dans leur union. Mais surtout, ils permettent de mettre en place le concept d'ouvertures et finales.
-	
+
 	\subsubsection{CaPi}
-	
+
 	L'approche CaPi (abbréviation de Cases/pieces) est l'approche la plus naive, elle permet de définir quelle piece peut être placée sur telle case et inversement, quelle case peux avoir telle piece.
-	
+
 	Cette approche est l'interaction la plus basique de notre problème. C'est aussi celle-ci qui est utilisée en bruteforce.
-	
+
 	\subsubsection{BoCo}
-	
-	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces. 
-	
+
+	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces.
+
 	\begin{exmp}
 		Si une couleur disparait, alors tt les pièces ayant cette couleur ne peuvent plus être placés à cette case, par conséquent, les autres bords de la case ont (probablement) des couleurs qui disparaissent aussi (propagation de la disparition).
 	\end{exmp}
-	
+
 	\subsubsection{Corolles}
-	
+
 	Grace aux visions CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
-	
+
 	Le nombre de cas possible étant très important, il est nécessaire de le classer. Les corolles peuvent êtres identifiés grâce à plusieurs critères.
-	
+
 	\begin{itemize}
 		\item taille du plateau
 		\item l'orientation de la corolle
@@ -130,21 +107,21 @@
 		\item La case à l'origine de la corolle
 		\item La taille de la corolle
 	\end{itemize}
-	
+
 	\paragraph{position et orientation des corolles}
 
 	\subsubsection{BoCoDiag}
-	
+
 	\section{Application}
-	
+
 	\section{Resultats}
-	
+
 	\section{Manuel d'utilisation}
-	
+
 	\section{Manuel Technique}
 
 
 	\bibliographystyle{plain-fr}
 	\bibliography{biblio}
-	
+
 \end{document}

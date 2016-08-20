@@ -1,0 +1,8 @@
+\documentclass[crop,tikz]{standalone}
+\begin{document}
+	\begin{tikzpicture}
+	    \draw[fill=blue!20] (90:3cm) \foreach \x in {210,330} {
+	    	-- (\x:3cm)
+	 } -- cycle (90:3cm) ;
+	\end{tikzpicture}
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass[crop, tikz]{standalone}
+\usepackage{tikz-qtree}% tikz package already loaded by 'tikz' option
+\begin{document}
+	\begin{tikzpicture}[every tree node/.style={draw}]
+	\tikzset{edge from parent/.style={draw, edge from parent path=
+			{(\tikzparentnode) -- (\tikzchildnode)}}}
+	\Tree 
+	[.pile 
+		[.pile 
+			[.pile ] 
+			[.face ]
+		]
+		[.face
+			[.pile ] 
+			[.face ]
+		]
+	]
+	\end{tikzpicture}
+\end{document}

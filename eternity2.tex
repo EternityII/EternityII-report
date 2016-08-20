@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 \section{Eternity II}
 	\subsection{Les origines}
 	--- [réel]
@@ -55,17 +56,18 @@
 		\caption{Deux pièces correctement placés (matchés)}\label{fig:matching}
 	\end{figure}
 	
-	Par conséquent, la pièce peut être placée n'importe ou sur le plateau car son placement dépend des couleurs des pièces d'à côté, de plus, les pièces n'ont pas d'orientation prédéterminés (elles peuvent être rotationnée).
+	Par conséquent, une pièce peut quasiment être placée n'importe où sur le plateau car son placement dépend des couleurs des pièces d'à côté, de plus, les pièces n'ont pas d'orientation prédéterminés (elles peuvent être rotationnée).
 	
 	Pour résumer, la plupart des pièces peuvent être posés n'importe où sur le plateau à différentes rotation car la position dépends entièrement des pièces adjacentes posés auparavant. 
 	
-	Enfin, comme leur nom l'indiquent, les pièces de coins sont les seules à pouvoir être posés dans les coins du plateau, c'est aussi valable pour les pièces de bord qui ne peuvent être placés que sur les bords du plateau.
+	Enfin, comme leur nom l'indiquent, les pièces de coins sont les seules à pouvoir être posés dans les coins du plateau, c'est aussi valable pour les pièces de bord qui ne peuvent être placés que sur les bords du plateau, ces deux types de pièces ne peuvent pas être ailleurs car leurs faces grises doit \enquote{matcher} avec les bords du plateau.
 	
 	
 	--- [résumé]
 	
 	Eternity II est un jeu sorti en 2008 qui repose sur un principe assez simple, c'est un puzzle de 16 par 16 qu'il faut réassembler. Il est composé de 256 pièces carrés, qui ont, sur chaque arête une couleur donnée. [images tt ca tt ca]. Afin de pouvoir assembler le puzzle, il suffit placer les pièces de façon à ce que les faces adjacentes soient de même couleur. Comme un puzzle classique, il y a des pièces de coin et de bord. Ceux-ci sont reconnaissables car ils possèdent une ou deux arêtes grises. Par contre, la où ca devient complexe, c'est qu'une pièce n'as pas une place prédéterminée (comme dans un puzzle), c'est à dire qu'elle peux se situer n'importe où sur le plateau. 
 	
+	\newpage
 	\subsection{Le défi}
 	--- [réel]
 	
@@ -122,3 +124,30 @@
 			Donc je simplifie mon problème.
 		\end{exmp}		
 	\end{description}
+	
+	\subsection{Etat de l'art}
+	
+	Un grand nombre de méthodes ont été mis en place afin de résoudre ce problème.
+	
+	Il serait trop long de présenter et décrire les différents méthodes mise en place car il requièrent une certaine connaissance dans les domaines auxquels ils sont appliqués. Malgré tout, Les différentes approches seront notés ici à titre informatif.
+	
+	Pour commencer, il existe plusieurs solveurs graphiques afin de pouvoir résoudre le puzzle manuellement ou assisté par l'ordinateur. Certains d'entre eux permettent même l'import export de la progression actuelle.
+	
+	\begin{itemize}
+		\item E2\_manual : \url{https://sourceforge.net/projects/e2manual/}(anglais)
+		\item E2Lab : \url{http://eternityii.free.fr/}(anglais)
+	\end{itemize}
+	
+	Ensuite, il existe un très grand nombre de solveurs bruteforce plus au moins rapides. Certains d'entre eux peuvent agréger plusieurs machines afin d'augmenter la puissance de calcul via le réseau.
+	
+	Ce problème a été abordé de façon très varié au niveau théorique et applicatif.
+	
+	Par exemple, Eternity à été adopté sous forme de graphe \cite{patey2010eternity} ou de sous forme de contraintes \cite{benoist2008programmation}.
+	
+	On note aussi un procédé intéressent de résolution grâce à une approche nommée \textbf{SAT} (satisfaisabilité booléenne) s'appuyant sur la logique propositionnelle \cite{cuvillierresolution} \cite{heule2009solving}.
+	
+	--- [résumé]
+	
+	Nombreux sont ceux qui ont essayé de résoudre le problème... plusieurs moyens ont été mis en place, grâce au solveur SAT (solveur de satisfiabilité booléenne dont le fonctionnement est assez complexe pour ne pas être abordé ici), par une approche graphe ou encore par bruteforce.
+	
+	Il est estimé que actuellement, l'approche la plus performante est la résolution par bruteforce, car c'est elle qui est la plus rapide.
