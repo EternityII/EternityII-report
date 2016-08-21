@@ -115,21 +115,22 @@
 	
 	\subsection{Objectif}
 	
-	Grâce à l'aide de ces deux approches. on peux donc diminuer drastiquement la quantité de calcul nécessaire en augmentant la quantité de données stockés.
+	Grâce à l'aide de ces deux approches. on peux donc diminuer drastiquement la quantité de calcul nécessaire en augmentant la quantité de données stockés. Par ailleurs, en adaptant la méthode de résolution on peux aussi réduire la profondeur totale de l'arbre.
+	
+	Par conséquent, on réduit non seulement ce qui reste à déterminer, mais aussi la taille de l'arbre dans son ensemble.
 	
 	\begin{figure}[H]
-			\begin{figure}[H]
-				\begin{center}
-					\includestandalone[mode=image]{graphics/ouvertures_finales}	
-				\end{center}
-				
-				\caption{Représentation simplifiée de l'objectif}
-				\label{fig:ouvertures_finales}
-			\end{figure}
+		\minipage[b]{0.48\textwidth}
+		\begin{center}
+			\includestandalone[mode=image]{graphics/ouvertures_finales}	
+		\end{center}
+		\caption{Représentation de la fusion des ouvertures et des finales}
+		\label{fig:ouvertures_finales}
+		\endminipage\hfill
+		\minipage[b]{0.48\textwidth}
+		\begin{center}
+			\includestandalone[mode=image]{graphics/objectif}	
+		\end{center}
+		\caption{Représentation simplifiée de l'objectif comprenant les ouvertures, les finales et les données}\label{fig:objectif}
+		\endminipage\hfill
 	\end{figure}
-	
-
-	\subsection{Difficultés préliminaires}
-
---- [a déplacer dans approche]
-	Afin de résoudre le problème, la principale difficulté c'est que le jeu de base est trop complexe et ne permet pas de déterminer si l'approche actuelle est adapté. Par conséquent, on utilisera des instances d'Eternity II, qui sont des plateaux de plus petite taille (4x4, 5x5 ...) qui ont les mêmes propriétés que le jeu de base.

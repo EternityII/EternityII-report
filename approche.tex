@@ -1,0 +1,167 @@
+% !TeX root = main.tex
+
+\section{Approche}
+
+	Dans cette partie, nous expliquerons quels sont les différents outils et stratégies mis en place pour permettre la résolution du problème.
+	
+	La principale difficulté c'est que le jeu de base est trop complexe et ne permet pas de déterminer si l'approche actuelle est mieux adapté. Par conséquent, on utilisera des instances plus petites, qui sont des plateaux de plus petite taille (4x4, 5x5 ...) qui respectent les deux lois d'Eternity II. 
+	
+	En supposant que la smartforce devient de plus en plus bénéfique suivant la complexité du problème, il est nécessaire de mettre en place une valeur étalon, reposant sur un programme bruteforce qui fournit différentes données permettant d'estimer si l'approche de la smartforce est plus bénéfique.
+	
+	Chaque n\oe ud de l'arbre des possibilités du jeu doit satisfaire deux données :
+	
+	\begin{description}
+		\item[variable] : une des cases
+		\item[valeur] : une des pièces.
+	\end{description}
+	
+	Lors de la progression dans l'arbre, il faut définir quelle valeur sera définie pour quelle variable (choisir telle case sur laquelle sera placée telle pièce). Pour cela, chaque variable (case) possède un domaine de valeur, un tableau contenant contient toutes les valeurs possibles (toutes les pièces qui peuvent être mise dessus) que l'on appellera \textbf{domaine}.
+	Et inversement, chaque valeur (pièce) possède un domaine contenant toutes les variable à laquelle elle peux être appliquée.
+
+	\subsection{Bruteforce}
+	
+	Le programme de bruteforce nous fournit une valeur étalon. Il se contente de parcourir tout l'arbre des possibilités.
+	
+	Il permet aussi de savoir quelle stratégie de chemin de parcours du plateau est la plus bénéfique. Les différentes stratégies de choix de variables étudiés sont :
+	
+	\begin{figure}[H]
+		\minipage{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/parcours_rowscan.png}
+		\caption{\textbf{rowscan} : parcours horizontal du plateau}\label{fig:parcours_rowscan}
+		\endminipage\hfill
+		\minipage{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/parcours_diagonal.png}
+		\caption{\textbf{diagonal} : parcours diagonal du plateau}\label{fig:parcours_diagonal}
+		\endminipage\hfill
+		\minipage{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/parcours_spiral-in.png}
+		\caption{\textbf{spiral-in} : parcours en spirale fermente du plateau}\label{fig:parcours_spiral-in}
+		\endminipage\hfill
+	\end{figure}
+	\begin{figure}[H]
+		\minipage{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/parcours_spiral-out.png}
+		\caption{\textbf{diagonal} : parcours en spirale ouvrante du plateau}\label{fig:parcours_spiral-out}
+		\endminipage\hfill
+		\minipage{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/parcours_quad-spiral-in.png}
+		\caption{\textbf{quad spiral out} : parcours avec quatre spirales fermentes}\label{fig:quad-spiral-in}
+		\endminipage\hfill
+		\minipage{0.32\textwidth}
+		\ %don't touch this !
+		\endminipage\hfill
+	\end{figure}
+	
+	Le choix des pièces (valeurs) est fait dans l'ordre lexicographique.
+	
+	Les données utilisés pour l'étalonnage sont les suivants :
+	
+	\begin{description}
+		\item[Première solution] : le temps et la quantité de n\oe uds nécessaires pour trouver la première solution (chaque instance peux en avoir plusieurs)
+		\item[Nombre total de solutions] : pour estimer les placement des solutions dans l'arbre
+		\item[Nombre total de n\oe uds] : pour pouvoir estimer la rapidité de l'algorithme pour trouver la première solution
+		\item[Temps total] : pour connaître si l'algorithme utilisé est plus performant que celui d'avant
+	\end{description}
+	
+	--- [résumé]
+	
+	Afin de pouvoir partir sur de bonnes bases, plusieurs différents méthodes de parcours (quel chemin prendre pour résoudre mon plateau) ont été utilisé, afin de voir quel parcours est le plus performant pour la résolution brute. En sachant que le nombre de noeuds/sec est la même, l'unité de mesure est le nombre de noeuds.
+
+	Les différents types de parcours sont :
+
+	\begin{description}
+		\item[rowscan]: on pose les pieces en lignes horizontales sur le plateau
+		\item[diagonal]: on pose les pieces en diagonal
+		\item[spiral in]: on dispose les pièces en spirale en partant de l'exterieur
+		\item[spiral out]: idem que spiral in mais en partant de l'intérieur vers l'extérieur
+	\end{description}
+
+	Ces différents types de parcours ont été testés sur plusieurs instances de taille variable.
+
+	\subsection{Smartforce}
+
+	La smartforce repose sur la quantité de données qu'elle possède. Par conséquent, il est important que ces données soient bien organisés, afin de pouvoir les traiter avec aise. Ces données sont organisés pour former des modèles. Chaque modèle peut être interprété comme un point de vue différent par rapport au problème.
+	
+	On note aussi l'introduction de nouvelles valeurs étalon.
+	
+	\begin{itemize}
+		\item Choix de variable :
+		\begin{itemize}
+			\item\textbf{Optimiste} : on choisit la variable qui à le plus grand domaine
+			\item\textbf{Pessimiste} : on choisit la variable qui à le plus petit domaine
+		\end{itemize}
+		\item Choix de valeur :
+		\begin{itemize}
+			\item \textbf{Lexicographique} : utilisé par défaut par la bruteforce, on choisit la valeur suivante dans l'ordre par défaut.
+			\item \textbf{Optimiste} : la valeur dont le domaine est le plus grand
+			\item \textbf{Pessimiste} : la valeur dont le domaine est le plus petit
+		\end{itemize}
+	\end{itemize}
+	
+	Différents modèles seront donc présentés par ordre de difficulté, car, afin de fournir des types de données variés, il est nécessaire d'abstraire le problème initial.
+	
+--- [résumé]
+
+	Une fois la valeur étalon fixée, il est maintenant facile de mettre en place un autre approche du problème qui à pour principe de cumuler une grande quantité de donnée pour faire face au nombre exponentiel de possibilités.
+
+	Les différents types de données (nommés modèles) sont comme différents points de vues du problème. Ils sont plus ou moins utiles, mais la force réside dans leur union. Mais surtout, ils permettent de mettre en place le concept d'ouvertures et finales.
+
+	\subsubsection{CaPi}
+
+	CaPi est le plus simple modèle représentant le problème. Il à pour variable les cases (identifiés par un numéro ou par ses coordonnées sur le plateau) et pour valeur les pièces (identifiés par un numéro et par leurs rotation). C'est aussi lui qui est utilisé comme modèle par défaut pour le choix des valeurs et variables.
+	
+	En somme, chaque pièce est associé aux cases sur laquelle elle peut être posée et inversement, chaque case contient la liste des pièces qu'elle peux avoir.
+	
+	\begin{rem}
+		Le domaine des cases est un peu plus complexe : une pièce donnée peux être placée sur la case \enquote{jusqu'à 4 fois} (à plusieurs rotation différentes). Par conséquent, lorsque l'on met à jour le domaine de la case (en posant la pièce sur une autre case), on supprime toutes les occurrences de cette pièce du domaine en question.
+		
+		Par conséquent, chaque pièce possède en vérité quatre domaines distincts (correspondant à chaque rotation de la pièce).
+	\end{rem}
+
+--- [résumé]
+	L'approche CaPi (abbréviation de Cases/pieces) est l'approche la plus naive, elle permet de définir quelle piece peut être placée sur telle case et inversement, quelle case peux avoir telle piece.
+
+	Cette approche est l'interaction la plus basique de notre problème. C'est aussi celle-ci qui est utilisée en bruteforce.
+
+	\subsubsection{BoCo}
+	
+	Le modèle BoCo (Bordures/Couleurs) est une approche bien plus fine, elle découle de l'abstraction de CaPi.
+	
+	Si l'on connait le domaine d'une case. On connaît les pièces qui peuvent être posés dessus. Par conséquent, on définit une \textbf{Bordure} comme une sous-partie d'une case.
+	
+	\begin{exmp}
+		Prenons la case 0, en 0,0 sur le plateau. Elle peux contenir 4 pièces (\no 0,1,2,3 ; ce sont toutes des pièces de coin) à la rotation 0.
+		Une case vide est représenté ainsi :
+		
+		\begin{figure}[H]
+		%	\includestandalone{graphics/case}
+		\end{figure}
+		
+	---	[en cours]
+	\end{exmp}
+	
+	--- [résumé]
+
+	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces.
+
+	\begin{exmp}
+		Si une couleur disparait, alors tt les pièces ayant cette couleur ne peuvent plus être placés à cette case, par conséquent, les autres bords de la case ont (probablement) des couleurs qui disparaissent aussi (propagation de la disparition).
+	\end{exmp}
+
+	\subsubsection{Corolles}
+
+	Grace aux visions CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
+
+	Le nombre de cas possible étant très important, il est nécessaire de le classer. Les corolles peuvent êtres identifiés grâce à plusieurs critères.
+
+	\begin{itemize}
+		\item taille du plateau
+		\item l'orientation de la corolle
+		\item La pièce (et sa rotation) à l'origine de la corolle
+		\item La case à l'origine de la corolle
+		\item La taille de la corolle
+	\end{itemize}
+
+	\paragraph{position et orientation des corolles}
+
+	\subsubsection{BoCoDiag}
