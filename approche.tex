@@ -82,7 +82,7 @@
 
 	La smartforce repose sur la quantité de données qu'elle possède. Par conséquent, il est important que ces données soient bien organisés, afin de pouvoir les traiter avec aise. Ces données sont organisés pour former des modèles. Chaque modèle peut être interprété comme un point de vue différent par rapport au problème.
 	
-	On note aussi l'introduction de nouvelles valeurs étalon.
+	On note aussi l'introduction de nouvelles méthodes de parcours :
 	
 	\begin{itemize}
 		\item Choix de variable :
@@ -131,11 +131,36 @@
 	
 	\begin{exmp}
 		Prenons la case 0, en 0,0 sur le plateau. Elle peux contenir 4 pièces (\no 0,1,2,3 ; ce sont toutes des pièces de coin) à la rotation 0.
-		Une case vide est représenté ainsi :
+		
+		
+		\minipage[t]{0.29\textwidth}
+		Si l'on décompose la case, celle-ci contient 4 faces :
 		
 		\begin{figure}[H]
-		%	\includestandalone{graphics/case}
+			\includestandalone[width=\linewidth]{graphics/case}
+
+			\caption{Détails d'une case}\label{fig:case}
 		\end{figure}
+		
+		Les bords 1 et 2 étant gris, il n'est pas nécessaire de les représenter. 
+		\endminipage\hfill
+		\minipage[t]{0.29\textwidth}
+	
+		On décompose ensuite les 4 pièces :
+		\begin{figure}[H]
+			\includestandalone[width=\linewidth]{graphics/4_pieces}
+			
+			\caption{Couleurs des 4 pièces}\label{fig:4_pieces}
+		\end{figure}
+		\endminipage\hfill
+		\minipage[t]{0.29\textwidth}
+			On associe ensuite les couleurs et leur occurence à chaque bord :
+			\begin{figure}[H]
+				\includestandalone[width=\linewidth]{graphics/4_pieces_on_bordure}
+				
+				\caption{Occurrences et couleurs de bordures}\label{fig:4_pieces_on_bordure}
+			\end{figure}
+		\endminipage\hfill
 		
 	---	[en cours]
 	\end{exmp}
