@@ -119,6 +119,7 @@
 	\end{rem}
 
 --- [résumé]
+
 	L'approche CaPi (abbréviation de Cases/pieces) est l'approche la plus naive, elle permet de définir quelle piece peut être placée sur telle case et inversement, quelle case peux avoir telle piece.
 
 	Cette approche est l'interaction la plus basique de notre problème. C'est aussi celle-ci qui est utilisée en bruteforce.
@@ -161,10 +162,43 @@
 				\caption{Occurrences et couleurs de bordures}\label{fig:4_pieces_on_bordure}
 			\end{figure}
 		\endminipage\hfill
-		
-	---	[en cours]
 	\end{exmp}
 	
+	Cette simplification du problème nous permet de connaître plus simplement si deux cases adjacentes possèdent des matching non possibles.  Il suffit ensuite d'éliminer les pièces possèdent la couleur manquante.
+		
+	\begin{exmp} Dans cet exemple, pour le deuxième cas [\autoref{fig:bordure_no_match}], toutes les pièces (orientés) ayant du rouge sur la face 2 ne peuvent être posés sur la case. Cela vaut aussi pour la case adjacente où la couleur verte ne peux être posée.
+			
+		\minipage[t]{0.45\textwidth}
+			Les deux cases ont des matching possibles :
+			
+			\begin{figure}[H]
+				\includestandalone[width=\linewidth]{graphics/bordure_match}
+				\caption{Cases adjacentes avec matching possible}\label{fig:bordure_match}
+			\end{figure}
+		
+		\endminipage\hfill
+		\minipage[t]{0.45\textwidth}
+			Les deux cases ont des matching non possibles
+			
+			\begin{figure}[H]
+				\includestandalone[width=\linewidth]{graphics/bordure_no_match}
+				
+				\caption{Cases ayant des matching non possibles}\label{fig:bordure_no_match}
+			\end{figure}
+			\endminipage\hfill
+	\end{exmp}
+	
+	Les bordures sont identifiés par un ID. Chaque \textbf{bordure} possède un domaine contenant les \textbf{couleurs} uniques qu'elle peux avoir et leur cardinalité [\autoref{fig:4_pieces_on_bordure}].
+	
+	Les couleurs sont aussi identifés par un numéro. Chaque \textbf{couleur} contient l'ensemble des bordures où elle peux être placée, et combien de fois elle peux l'être (cardinalité).
+	
+	L'utilité de ce modèle réside dans la propagation des données. Le but étant de propager une information à travers les cases, en ne mettant à jour que les données concernées.
+	
+	Dans une disposition CaPi, pour appliquer la propagation des données, on est obligé de faire le produit des domaines des cases adjacentes pour chaque matching (comparer les pièces possibles de chaque case entre eux). Ce qui s'avère très couteux et beaucoup de ces vérifications sont inutiles.
+	
+	Par contre, grâce à \textbf{BoCo}, il suffit de vérifier que la cardinalité des couleurs reste positive pour les deux bordures adjacentes. Seulement lorsque le nombre d'occurrences d'une couleur tombe à zéro, l'autre est invalidée (disons, la couleur rouge). Il suffit ensuite de récupérer les autres couleurs de la pièce qui disparait (car elle avait la couleur rouge), et de décrémenter les autres bordures de la case concernée. Si leur occurrence tombe à zéro, on met à jour leur bordure adjacente, sinon, on ne fait rien.
+
+	Les 
 	--- [résumé]
 
 	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces.
@@ -175,7 +209,10 @@
 
 	\subsubsection{Corolles}
 
-	Grace aux visions CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
+
+	--- [résumé]
+
+	Grace aux modèles CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
 
 	Le nombre de cas possible étant très important, il est nécessaire de le classer. Les corolles peuvent êtres identifiés grâce à plusieurs critères.
 
