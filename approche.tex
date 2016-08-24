@@ -133,7 +133,6 @@
 	\begin{exmp}
 		Prenons la case 0, en 0,0 sur le plateau. Elle peux contenir 4 pièces (\no 0,1,2,3 ; ce sont toutes des pièces de coin) à la rotation 0.
 		
-		
 		\minipage[t]{0.29\textwidth}
 		Si l'on décompose la case, celle-ci contient 4 faces :
 		
@@ -188,17 +187,16 @@
 			\endminipage\hfill
 	\end{exmp}
 	
-	Les bordures sont identifiés par un ID. Chaque \textbf{bordure} possède un domaine contenant les \textbf{couleurs} uniques qu'elle peux avoir et leur cardinalité [\autoref{fig:4_pieces_on_bordure}].
+	Les bordures sont identifiés par un numéro. Chaque \textbf{bordure} possède un domaine contenant les \textbf{couleurs} uniques qu'elle peux avoir et leur cardinalité [\autoref{fig:4_pieces_on_bordure}].
 	
-	Les couleurs sont aussi identifés par un numéro. Chaque \textbf{couleur} contient l'ensemble des bordures où elle peux être placée, et combien de fois elle peux l'être (cardinalité).
+	Les couleurs sont aussi identifiés par un numéro. Chaque \textbf{couleur} contient l'ensemble des bordures où elle peux être placée, et combien de fois elle peux l'être (cardinalité).
 	
 	L'utilité de ce modèle réside dans la propagation des données. Le but étant de propager une information à travers les cases, en ne mettant à jour que les données concernées.
 	
 	Dans une disposition CaPi, pour appliquer la propagation des données, on est obligé de faire le produit des domaines des cases adjacentes pour chaque matching (comparer les pièces possibles de chaque case entre eux). Ce qui s'avère très couteux et beaucoup de ces vérifications sont inutiles.
 	
-	Par contre, grâce à \textbf{BoCo}, il suffit de vérifier que la cardinalité des couleurs reste positive pour les deux bordures adjacentes. Seulement lorsque le nombre d'occurrences d'une couleur tombe à zéro, l'autre est invalidée (disons, la couleur rouge). Il suffit ensuite de récupérer les autres couleurs de la pièce qui disparait (car elle avait la couleur rouge), et de décrémenter les autres bordures de la case concernée. Si leur occurrence tombe à zéro, on met à jour leur bordure adjacente, sinon, on ne fait rien.
-
-	Les 
+	Par contre, grâce à \textbf{BoCo}, il suffit de vérifier que la cardinalité des couleurs reste positive pour les deux bordures adjacentes. Seulement lorsque le nombre d'occurrences d'une couleur tombe à zéro, l'autre est invalidée (disons, la couleur rouge). Il suffit ensuite de récupérer les autres couleurs de la pièce qui disparait (car elle avait la couleur rouge), et de décrémenter les autres bordures de la case concernée. Si leur occurrence tombe à zéro, on met à jour leur bordure adjacente, sinon, la propagation s'arrête.
+	
 	--- [résumé]
 
 	L'approche BoCo (Bordure/Couleur) est bien plus fine : si l'on connait quelle piece est sur telle case, on sait quelle couleur peux se placer sur telle bordure [de la case]. Elle permet d'implémenter un système de mis à jour bien plus performant car ne nombre de couleurs est bien plus petit que le nombre de pièces.
@@ -210,6 +208,127 @@
 	\subsubsection{Corolles}
 
 
+	Une corolle est une surface du plateau qui est pré-calculée afin de pouvoir être réutilisée par la suite.
+		
+	La corolle possède une pièce centrale, de laquelle sont calculées les pièces avoisinantes. Par conséquent, la taille de la corolle est définie par la distance de la pièce la plus au bord par rapport à la pièce centrale, cette distance sera appelée hamming ($H$).
+	
+	\begin{rem}
+		Une corolle de hamming 0 est la pièce elle-même.
+	\end{rem}
+		
+	\begin{figure}[H]
+		\begin{minipage}[t]{0.33\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_hamming_1.png}
+			\caption{Corolle de hamming 1}\label{fig:corolle_hamming_1}
+		\end{minipage}\hfill
+		\begin{minipage}[t]{0.33\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_hamming_2.png}
+			\caption{Corolle de hamming 2}\label{fig:corolle_hamming_2}
+		\end{minipage}\hfill
+		\begin{minipage}[t]{0.33\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_hamming_3.png}
+			\caption{Corolle de hamming 3}\label{fig:corolle_hamming_3}
+		\end{minipage}\hfill
+	\end{figure}
+
+	Son nom, corolle, vient de sa forme. Suivant son placement, cette forme change. Les différentes formes dépendent de la taille de la corolle (\enquote{rayon} de la corolle) et de la position sur le plateau.
+		
+	\begin{figure}[H]
+		\begin{minipage}[t]{0.33\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_simple.png}
+			\caption{Forme basique d'une corolle}\label{fig:corolle}
+		\end{minipage}\hfill
+		\begin{minipage}[t]{0.66\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_formes.png}
+			\caption{Différentes formes de la corolle de hamming 2 sur une instance de taille 7}\label{fig:corolle_forme}
+		\end{minipage}\hfill
+	\end{figure}
+	
+	\begin{exmp}
+		Supposons qu'une corolle est seulement définie par sa forme. Prenons comme coordonnées $(0,1)$ et $(1,0)$ avec un hamming de 1. La forme des corolles sur ces coordonnées est identique. Elle à une forme de tétris.
+		
+		Par conséquent, les corolle en coordonnées $(0,1)$ peuvent aller en $(1,0)$ et inversement.
+		
+		\begin{figure}[H]
+			\begin{minipage}{0.33\textwidth}
+				\includegraphics[width=\linewidth]{images/corolle_tetris_bord.png}
+				\caption{Corolle en $(0,1)$ (blue)et en $(1,0)$ (vert)}\label{fig:corolle_tetris_bord}
+			\end{minipage}\hfill
+			\begin{minipage}{0.33\textwidth}
+				\begin{center}
+					\includegraphics{images/corolle_tetris_1.png}
+					\caption{Corolle tetris en $(1,0)$}\label{fig:corolle_tetris_1}
+					\includegraphics{images/corolle_tetris_2.png}
+					\caption{Corolle tetris en $(0,1)$}\label{fig:corolle_tetris_2}
+				\end{center}
+			\end{minipage}\hfill
+			\begin{minipage}{0.33\textwidth}
+				\includegraphics{images/corolle_tetris.png}
+				\caption{Noms des pièces dans la corolle tetris}\label{fig:corolle_tetris}
+			\end{minipage}\hfill
+		\end{figure}
+		Or, pour les types de pièces, il y a un problème. en $(1,0)$ P3 est une pièce de coin, alors qu'en $(0,1)$ c'est une pièce de bord (même problème pour P1).
+		
+		Donc, non seulement, une corolle est définie par sa forme, mais aussi par sa position.
+	\end{exmp}
+	
+	Par conséquent, une corolle est définie par le type de pièces (coin, bord, intérieur) qui la composent et de sa forme. Par conséquent, il n'est pas nécessaire de pré-calculer les corolles sur toutes les cases du plateau. On peux départager le plateaux en zone. Toutes les corolles d'une même zone sont identiques.
+	
+	\begin{rem}
+		Plus le hamming de la corolle augmente, plus il y a des zones différentes à cause de l'augmentation des types de pièces qui la compose.
+	\end{rem}
+	
+	\begin{figure}[H]
+		\begin{minipage}{0.49\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_zones_h_1.png}
+			\caption{Quantité de zones differentes sur un plateau de taille 7, pour une corolle de hamming 1}\label{fig:corolle_zones_h_1}
+		\end{minipage}\hfill
+		\begin{minipage}{0.49\textwidth}
+			\includegraphics[width=\linewidth]{images/corolle_zones_h_2.png}
+			\caption{Quantité de zones différentes sur un plateau de taille 7, pour une corolle de hamming 2}\label{fig:corolle_zones_h_2}
+		\end{minipage}\hfill
+	\end{figure}
+	
+	
+	\begin{defn}
+	Pour tout corolle ayant pour pièce centrale $P$ de taille $H$ d'une zone $Z_1$ donnée, elle découle de l'expansion d'une corolle de
+	taille inférieure $H-1$ ayant pour zone $Z_0$ englobant la zone $Z_1$ avec $P$ identique.
+	\end{defn}
+	
+	\begin{defn}
+		Une corolle de hamming 2 (H2) contient une corolle de H1 de la zone qui est englobée par la zone de H1
+	\end{defn}
+	\begin{exmp}
+		Dans la ~\autoref{fig:corolle_zones_h_2}, les zones 8,12,13 sont englobées par la zone 7 de H1 [\autoref{fig:corolle_zones_h_1}].
+	\end{exmp}
+
+	La frontière définit les couleurs au bord de la corolle, ils sont nécessaires pour connaitre les pièces qui peuvent être placés à côté.
+	
+	\begin{exmp}
+		Les faces d'une couleurs sont la frontière d'une corolle de hamming 0.
+	\end{exmp}
+	
+	Pour résumer. Une corolle est une surface du plateau d'une certaine forme qui est pré-calculée. Une corolle pouvant être à plusieurs endroit, elle set dépendante d'une zone. Elle est composée d'une pièce principale qui la définit ainsi que d'une frontière. Une corolle est composée d'une corolle de hamming inférieur, se trouvant dans une zone englobant la celle de la corolle actuelle.
+	
+	Afin que la corolle soit correcte, il est nécessaire de connaître les informations suivantes :
+	\begin{itemize}
+		\item taille du plateau
+		\item zone de la corolle
+		\item son hamming
+		\item les pièces qui la composent
+	\end{itemize}
+	
+	Par la suite, on nommera \textbf{corolle}, l'ensemble des corolles qui ont pour même valeur:
+	
+	\begin{itemize}
+		\item la taille du plateau
+		\item zone de la corolle
+		\item hamming
+		\item pièce principale (et sa rotation).
+	\end{itemize}
+	
+	Cela permet d'utiliser le terme corolle pour nommer un ensemble de toutes les cas possibles lorsque l'on \enquote{pose} une corolle sur le plateau.
+	
 	--- [résumé]
 
 	Grace aux modèles CaPi et BoCo, il est possible de pré-calculer des zones du plateau nommés corolles, ceux-ci contiennent tous les cas possibles dans cette zone donnée.
@@ -224,6 +343,6 @@
 		\item La taille de la corolle
 	\end{itemize}
 
-	\paragraph{position et orientation des corolles}
-
 	\subsubsection{BoCoDiag}
+	
+	%todo
