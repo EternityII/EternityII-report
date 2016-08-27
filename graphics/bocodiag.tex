@@ -1,0 +1,59 @@
+\documentclass[crop, tikz]{standalone}
+\begin{document}
+	\newcommand{\figuresize}{3cm}
+	\newcommand{\figuresizepadding}{3.2cm}
+	\begin{tikzpicture}
+	\begin{scope}[shift={(0,\figuresize)}]
+			\coordinate (A1) at (0, 0);
+			\coordinate (A2) at (0, \figuresize);
+			\coordinate (A3) at (\figuresize, \figuresize);
+			\coordinate (A4) at (\figuresize, 0);
+			\coordinate (AC) at (0.5*\figuresize, 0.5*\figuresize);
+			
+			\draw[very thick, fill=gray!40,auto=right] (A1) -- node{$0$:Gris} (A2)  -- (AC) -- cycle;
+			\draw[very thick, fill=gray!40,auto=right] (A2) -- node{$0$:Gris} (A3) -- (AC) --  cycle;
+			\draw[very thick, fill=blue!30,auto=right] (A3) -- node{$1$:Blue} (A4) -- (AC) -- cycle;
+			\draw[very thick, fill=blue!30,auto=right] (A4) -- node{$1$:Blue} (A1) -- (AC) -- cycle;
+	\end{scope}
+	
+	\begin{scope}[shift={(\figuresize,\figuresize)}]
+		\coordinate (A1) at (0, 0);
+		\coordinate (A2) at (0, \figuresize);
+		\coordinate (A3) at (\figuresize, \figuresize);
+		\coordinate (A4) at (\figuresize, 0);
+		\coordinate (AC) at (0.5*\figuresize, 0.5*\figuresize);
+		
+		\draw[very thick, fill=blue!30,auto=right] (A1) -- node{$1$:Bleu} (A2)  -- (AC) -- cycle;
+		\draw[very thick, fill=gray!40,auto=right] (A2) -- node{$0$:Gris} (A3) -- (AC) --  cycle;
+		\draw[very thick, fill=green!30,auto=right] (A3) -- node{$3$:Green} (A4) -- (AC) -- cycle;
+		\draw[very thick, fill=yellow,auto=right] (A4) -- node{$4$:Jaune} (A1) -- (AC) -- cycle;
+	\end{scope}
+	\begin{scope}
+		\coordinate (A1) at (0, 0);
+		\coordinate (A2) at (0, \figuresize);
+		\coordinate (A3) at (\figuresize, \figuresize);
+		\coordinate (A4) at (\figuresize, 0);
+		\coordinate (AC) at (0.5*\figuresize, 0.5*\figuresize);
+		
+		\draw[very thick, fill=gray!40,auto=right] (A1) -- node{$0$} (A2)  -- (AC) -- cycle;
+		\draw[very thick, fill=blue!30,auto=right] (A2) -- node{$1$} (A3) -- (AC) --  cycle;
+		\draw[very thick, fill=red,auto=right] (A3) -- node{$2$} (A4) -- (AC) -- cycle;
+		\draw[very thick, fill=blue!30,auto=right] (A4) -- node{$1$} (A1) -- (AC) -- cycle;
+	\end{scope}
+	
+	\begin{scope}[shift={(\figuresize,0)}]
+		\coordinate (A1) at (0, 0);
+		\coordinate (A2) at (0, \figuresize);
+		\coordinate (A3) at (\figuresize, \figuresize);
+		\coordinate (A4) at (\figuresize, 0);
+		\coordinate (AC) at (0.5*\figuresize, 0.5*\figuresize);
+		
+		\draw[very thick, fill=red,auto=right] (A1) -- node{$2$} (A2)  -- (AC) -- cycle;
+		\draw[very thick, fill=yellow,auto=right] (A2) -- node{$4$} (A3) -- (AC) --  cycle;
+		\draw[very thick, fill=blue!30,auto=right] (A3) -- node{$1$} (A4) -- (AC) -- cycle;
+		\draw[very thick, fill=red,auto=right] (A4) -- node{$2$} (A1) -- (AC) -- cycle;
+	\end{scope}
+
+		
+	\end{tikzpicture}
+\end{document}

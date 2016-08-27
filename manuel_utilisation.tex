@@ -1,0 +1,162 @@
+\section{Manuel d'utilisation}
+
+Dans cette partie nous verrons comment utiliser les différents outils développés pendant la durée du stage.
+
+	\subsection{Pré-requis}
+	
+	Afin de pouvoir manipuler avec aise l'ensemble des outils présentés ici, il est vivement conseillé de connaître le fonctionnement global d'un Git \autocite{git}.
+	
+	L'ensemble des outils présentés ici sont hébergés sur un dépot privé de l'UM \autocite{gitlab:eternity}.
+
+	\subsection{EternityII}
+	
+	\textbf{Pré-requis} : Afin de pouvoir utiliser ce logiciel il est nécessaire de pouvoir compiler du code C++11 et utiliser la commande \enquote{\lstinline[columns=fixed,language=bash]{make}}.
+	
+	Le programme \textbf{EternityII} est le programme principal développé le long de l'année et du stage. Le code source peux être récupéré ici : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII} (dépôt privé).
+	
+	Le dépot contient deux versions du programme :
+	
+	\begin{itemize}
+		\item La version basique pour la résolution bruteforce
+		\item la résolution smartforce
+	\end{itemize}
+
+	\subsubsection{Bruteforce}
+	
+	La version bruteforce se trouve sur la branche v0.2.2-bruteforce \autocite{gitlab:eternity_bruteforce}. L'interaction avec l'application se fait dans le main :
+	
+	\begin{lstlisting}[language=c++, caption={Parcours bruteforce sur plusieurs tailles du plateau, en affichant tous les résultats des différents parcours}]
+int main()
+{
+    for (int i = 4; i < 8; ++i) {
+        ostringstream str;
+         // nom du fichier d'entree contenant l'instance
+        str << "assets/pieces_" << i << "x" << i << ".txt";
+        FileIn file_in(str.str().c_str());
+        Jeu jeu = file_in.initJeu(); // initialise le jeu
+        // initialise la classe chargee de la resolution
+        Generator generator(jeu); 
+        // Affiche les resultats pour tous les parcours
+        generator.multipleGeneration(); 
+    }
+}
+	\end{lstlisting}
+	
+	Pour effectuer un parcours spécifique, la dernière ligne doit être changée :
+	
+	\begin{lstlisting}[language=c++, caption={Parcours bruteforce sur plusieurs tailles du plateau, en affichant tous les résultats du rowscan}]
+int main()
+{
+    for (int i = 4; i < 8; ++i) {
+        ostringstream str;
+        // nom du fichier d'entree contenant l'instance
+        str << "assets/pieces_" << i << "x" << i << ".txt"; 
+        FileIn file_in(str.str().c_str());
+        Jeu jeu = file_in.initJeu(); // initialise le jeu
+        // initialise la classe chargee de la resolution
+        Generator generator(jeu); 
+        // Affiche les resultats du parcours
+        generator.parcoursBruteForce(Generator::PARCOURS_ROW,0); 
+    }
+}
+	\end{lstlisting}
+    
+	Les différentes constantes pour le parcours sont :
+    
+	\begin{itemize}
+		\item \lstinline[language=c++]|Generator::PARCOURS_ROW|
+		\item \lstinline[language=c++]|Generator::PARCOURS_DIAGONAL|
+		\item \lstinline[language=c++]|Generator::PARCOURS_SPIRALE_IN|
+		\item \lstinline[language=c++]|Generator::PARCOURS_SPIRALE_OUT|
+	\end{itemize}
+	
+	Les fichiers d'instances se trouvent dans le dossier \enquote{assets}.
+	
+	Le résultat est affiché en Markdown \autocite{markdown}.
+	
+	\subsubsection{Smartforce}
+	
+	La résolution smartforce est en cours de développement, malgré le fait que le framework (outil de développement) soit fini. L'implémentation de CaPi est incomplète et renvoie des données non cohérentes.
+	
+	Le fonctionnement du framework est explicité dans le manuel technique.
+	
+	\subsection{EternityII--corolle\_generator} 
+	
+	Le code de ce programme peux être trouvé ici : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII-corolle_generator} (dépôt privé).
+	
+	Le code source est inspiré du programme de bruteforce.
+	
+	
+	\textbf{Utilisation}
+	
+	Compiler le programme en utilisant make (linux).
+	
+	Le programme accepte deux arguments :
+	
+	\begin{itemize}
+		\item Le fichier d'instance (qui peux être trouvé dans le dossier assets)
+		\item Le hamming maximal à générer (2 par défaut).
+	\end{itemize}
+	
+	\begin{exmp}
+		La commande \lstinline[language=bash]|$ ./main pieces_10x10.txt 2|
+		
+		Génèrera les corolles de toutes les zones en hamming 1 et 2 pour un 10.
+	\end{exmp}
+	
+	\textbf{Personnalisation}
+	
+	Il est malgré tout possible de forcer le programme à ne générer qu'une zone et un hamming spécifique.
+	
+	En modifiant les lignes (10-14) du fichier main.cpp :
+	
+	\lstinputlisting[language=c++, firstline=9]{code/corolle.cpp}
+	
+	en 
+	
+	\begin{lstlisting}[language=c++]
+generator.initGeneration(0,0,1) // x,y,hamming
+	\end{lstlisting}
+	
+	\subsection{EternityII--cardinality\_counter} 
+	
+	Le code de ce programme peux être trouvé ici : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII-cardinality_counter} (dépôt privé).
+	
+	Ce programme est en python, il compte le nombre de pièces uniques à chaque position dans la corolle. Il prends deux arguments :
+	
+	\begin{itemize}
+		\item Le fichier corolle.
+		\item (optionnel) \enquote{--o} sauvegarde le résultat dans un fichier du même nom avec \enquote{stat\_} préfixé
+	\end{itemize}
+	
+	\begin{exmp}
+		\lstinline[language=bash]|$ python main.py corolle.txt -o|
+		Traite le ficher et sauvegarde les comptes dans un fichier nommé \lstinline|stat_corolle.txt|
+	\end{exmp}
+	
+	\subsection{EternityII--corolle\_rotator}
+	
+	Le code de ce programme peux être trouvé ici : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII-corolle_rotator} (dépôt privé).
+	
+	\textbf{Description}
+	
+	Génère un fichier de la corolle à la rotation voulue, en fonction du fichier initial.
+	
+	\textbf{Usage}
+	
+	\lstinline[language=bash]|$ python main.py file_path [-o output_file, -r rotation]|
+	
+	\begin{itemize}
+		\item \lstinline|file_path| est le chemin vers le fichier de corolle
+		\item \lstinline|-o| ou \lstinline|--output| est le chemin vers le fichier généré
+		\item \lstinline|-r| ou \lstinline|--rotation| est la rotation souhaitée (entre 0 et 3)
+	\end{itemize}
+	
+	\begin{rem}
+		si \lstinline|-o| est spécifié, alors \lstinline|-r| doit l'être aussi.
+	\end{rem}
+	\begin{rem}
+		si \lstinline|-r| n'est pas spécifié, alors il générera les 3 rotation complémentaire au fichier
+	\end{rem}
+	
+	Le fichier de sortie est généré dans le même répertoire que le fichier d'entrée.
