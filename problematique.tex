@@ -47,11 +47,11 @@
 	   	\caption{Représentation simplifiée d'un arbre de possibilité}
 	   	\label{fig:arbre}
 	\end{figure}
-	
+	 \newpage
 
 	\subsection{Ouvertures}
 	
-	L'idée est de pré-calculer toutes les débuts jusqu'à un certaine profondeur de l'arbre pour ensuite créer des sous-arbres pouvant être parcourus parallèlement ou pondérer les sous-arbres générés pour les classer (par taille, \dots).
+	L'idée est de pré-calculer tous les débuts jusqu'à un certaine profondeur de l'arbre pour ensuite créer des sous-arbres pouvant être parcourus parallèlement ou pondérer les sous-arbres générés pour les classer (par taille, \dots).
 	
 	\begin{exmp}
 		Dans le cas du lancé de monnaie, je sais que le premier lancer, me donne soit pile soit face. En connaissant cela, je peux séparer l'arbre en deux sous-arbres. Cela m'évite de recalculer la première profondeur
@@ -94,7 +94,8 @@
 		\label{fig:ouvertures}
 	\end{figure}
 		
-	Le triangle des possibilités est tronqué car le début a déjà été pré-calculé, c'est comme si l'on avait collé tout les sous-arbre entre eux. Les ouvertures étant stockés sous forme de données, elle sont représentés par une carré.
+	Le triangle des possibilités est tronqué car le début a déjà été pré-calculé, c'est comme si l'on avait placé tout les sous-arbre côte à côte. Les ouvertures étant stockées sous forme de données, elles sont représentés par un carré.
+\newpage
 
 	\subsection{Finales}
 
@@ -112,6 +113,7 @@
 		\caption{Représentation simplifiée des finales}
 		\label{fig:finales}
 	\end{figure}
+	\newpage
 	
 	\subsection{Objectif}
 	
@@ -134,3 +136,5 @@
 		\caption{Représentation simplifiée de l'objectif comprenant les ouvertures, les finales et les données}\label{fig:objectif}
 		\endminipage\hfill
 	\end{figure}
+	
+	Par la suite, en supposant que l'emploi des données pré-calculées est longue et fastidieuse, le but sera d'aussi utiliser des technologies avancées afin d'accélérer la résolution.

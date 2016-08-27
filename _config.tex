@@ -4,13 +4,16 @@
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 %====================== PACKAGES ======================
-\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber,sorting=none]{biblatex}
 \usepackage[mode=buildnew]{standalone}
 %pour gérer les positionnement d'images
 \usepackage{float}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage[toc,page]{appendix}
+\renewcommand\appendixtocname{Annexes}
+\renewcommand\appendixpagename{Annexes}
 \usepackage{url}
 %pour les informations sur un document compilé en PDF et l\section{}es liens externes / internes
 \usepackage{hyperref}
@@ -33,6 +36,19 @@
 \usepackage{csquotes}
 %Code source
 \usepackage{listingsutf8}
+\lstset{basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#},
+    extendedchars=false,
+    inputencoding=utf8,
+    numberstyle=\footnotesize,
+    numbers=left,
+    frame=L,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
 
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 %Pour les galerie d'images
