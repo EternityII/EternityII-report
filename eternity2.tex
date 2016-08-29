@@ -30,7 +30,7 @@
 	
 	C'est un puzzle de 16 par 16 qui sort sous le nom d'Eternity II. Ce puzzle est composé de 256 pièces carrées, qui ont chacune 4 faces colorées (ou demi-motifs).
 	
-	Ces pièces peuvent être classés en trois catégories suivant le nombre de faces grises qu'elles possèdent :
+	Ces pièces peuvent être classées en trois catégories suivant le nombre de faces grises qu'elles possèdent :
 	
 	\begin{figure}[H]
 	   	\minipage{0.32\textwidth}
@@ -47,7 +47,7 @@
 	   	\endminipage
 	\end{figure}
 
-	Ces pièces ne possèdent pas de formes comme dans un puzzle classique. Afin de les faire correspondre les uns avec les autres, il est nécessaire que les faces adjacentes de chaque pièce voisine soient de la même couleur, dés lors les pièces \enquote{matchent [\autoref{fig:matching}]} .
+	Ces pièces ne possèdent pas de formes comme dans un puzzle classique. Afin de les faire correspondre les unes avec les autres, il est nécessaire que les faces adjacentes de chaque pièce voisine soient de la même couleur, dés lors les pièces \enquote{matchent [\autoref{fig:matching}]} .
 	
 	\begin{figure}[H]
 		\centering
@@ -55,18 +55,18 @@
 		\caption{Deux pièces correctement placés (matchés)}\label{fig:matching}
 	\end{figure}
 	
-	Par conséquent, une pièce peut quasiment être placée n'importe où sur le plateau car son placement dépend des couleurs des pièces d'à côté. De plus, les pièces n'ont pas d'orientation prédéterminés (elles peuvent être placés à n'importe quelle rotation).
+	Par conséquent, une pièce peut quasiment être placée n'importe où sur le plateau car son placement dépend des couleurs des pièces adjacentes. De plus, les pièces n'ont pas d'orientation prédéterminée (elles peuvent être placées à n'importe quelle rotation).
 	
 	Pour résumer, la plupart des pièces peuvent être posées n'importe où sur le plateau à différentes rotation car la position dépends entièrement des pièces adjacentes posées auparavant. 
 	
-	Enfin, comme leur nom l'indique, les pièces de coins sont les seules à pouvoir être posées dans les coins du plateau, c'est aussi valable pour les pièces de bord qui ne peuvent être placées que sur les bords du plateau, ces deux types de pièces ne peuvent pas être ailleurs car leurs faces grises doit \enquote{matcher [\autoref{fig:matching}]} avec les bords du plateau.
+	Enfin, comme leur nom l'indique, les pièces de coins sont les seules à pouvoir être posées dans les coins du plateau, c'est aussi valable pour les pièces de bord qui ne peuvent être placées que sur les bords du plateau, ces deux types de pièces ne peuvent pas être ailleurs car leurs faces grises doivent \enquote{matcher [\autoref{fig:matching}]} avec les bords du plateau.
 	
 	\newpage
 	\subsection{Le défi}
 	
 	Malgré le fait que la récompense ait expiré le 31 décembre de l'année 2010, le problème et l'enthousiasme qu'a engendré Eternity II ne s'est pas calmé pour autant (enfin si\dots un peu). Car loin d'être juste un jeu avec une importante cagnotte il recel en son c\oe ur des secrets d'une certaine valeur.
 	
-	En effet, jusqu'à maintenant, personne n'a réussi à résoudre ce puzzle, même pas effleuré la solution, malgré l'aide de supercalculateurs et de nombreux spécialistes, que ce soient des mathématiciens ou des informaticiens.
+	En effet, jusqu'à maintenant, personne n'a réussi à résoudre ce puzzle, même pas effleuré la solution, malgré l'aide de supercalculateurs et de nombreux spécialistes, que ce soit des mathématiciens ou des informaticiens.
 	
 	Pourquoi ? Car derrière ce jeu anodin se cache l'un des plus grand problème du monde actuel : les problèmes NP-complets \autocite{wiki:np_complet}. Ceux-ci sont fait de telle sorte que même en connaissant leur structure ou fonctionnement, il est pratiquement impossible d'en déduire un algorithme (moyen de résoudre) efficace afin de trouver la solution. Ce type de problème est communément appliqué dans le chiffrement. Le meilleur moyen de cacher une aiguille (solution) est de la placer dans gros paquet d'aiguilles, plus le tas est gros, plus on met de temps à la [l'aiguille] trouver.
 	
@@ -97,7 +97,7 @@
 	
 	Un grand nombre de méthodes ont été mis en place afin de résoudre ce problème.
 	
-	Il serait trop long de présenter et décrire les différents méthodes mise en place car il requièrent une certaine connaissance dans les domaines auxquels ils sont appliqués. Malgré tout, Les différentes approches seront notés ici à titre informatif.
+	Il serait trop long de présenter et décrire les différentes méthodes mise en place car il requièrent une certaine connaissance dans les domaines auxquels ils sont appliqués. Malgré tout, les différentes approches seront notés ici à titre informatif.
 	
 	Pour commencer, il existe plusieurs solveurs graphiques afin de pouvoir résoudre le puzzle manuellement ou assisté par l'ordinateur. Certains d'entre eux permettent même l'import export de la progression actuelle.
 	

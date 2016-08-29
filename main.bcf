@@ -2073,3 +2073,29 @@
     <bcf:datasource type="file" datatype="bibtex">biblio.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="2">resolutioneternity</bcf:citekey>
+    <bcf:citekey order="3">eternity2maker</bcf:citekey>
+    <bcf:citekey order="4">wiki:np_complet</bcf:citekey>
+    <bcf:citekey order="5">patey2010eternity</bcf:citekey>
+    <bcf:citekey order="6">benoist2008programmation</bcf:citekey>
+    <bcf:citekey order="7">cuvillierresolution</bcf:citekey>
+    <bcf:citekey order="8">heule2009solving</bcf:citekey>
+    <bcf:citekey order="9">murray1993probability</bcf:citekey>
+    <bcf:citekey order="10">git</bcf:citekey>
+    <bcf:citekey order="11">gitlab:eternity</bcf:citekey>
+    <bcf:citekey order="12">gitlab:eternity_bruteforce</bcf:citekey>
+    <bcf:citekey order="13">markdown</bcf:citekey>
+    <bcf:citekey order="14">wiki:kissprinciple</bcf:citekey>
+    <bcf:citekey order="15">choco</bcf:citekey>
+    <bcf:citekey order="16">wiki:lzma</bcf:citekey>
+    <bcf:citekey order="17">knuth2000dancing</bcf:citekey>
+    <bcf:citekey order="18">knuth2000dancing</bcf:citekey>
+  </bcf:section>
+  <bcf:sortlist section="0" name="none/global/" type="entry" sortscheme="none" sortnamekeyscheme="global" labelprefix="">
+  <bcf:sorting>
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">citeorder</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sorting>
+  </bcf:sortlist>
+</bcf:controlfile>

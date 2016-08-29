@@ -1,7 +1,7 @@
 % !TeX root = main.tex
 \section{Problématique}
 
-	Le but du stage est donc de déterminer si, malgré les dires, on pourrait trouver une méthode de résolution plus efficace que la bruteforce, qui reposerait sur une grande quantité d'information pré-calculées, cette méthode sera appelée smartforce par la suite.
+	Le but du stage est donc de déterminer si, malgré les dires, on pourrait trouver une méthode de résolution plus efficace que la bruteforce, qui reposerait sur une grande quantité d'informations pré-calculées, cette méthode sera appelée smartforce par la suite.
 
 	Ces informations pré-calculées serviront différentes causes, mais deux objectifs principaux peuvent en être explicités :
 
@@ -10,7 +10,7 @@
 		\item les finales
 	\end{itemize}
 
-	Afin de comprendre le principe des ouvertures et des finales, il est important de pouvoir se représenter un arbre de possibilités où chaque branche de l'arbre est une combinaison spécifique.
+	Afin de comprendre le principe des ouvertures et des finales, il est important de pouvoir se représenter un arbre des possibilités où chaque branche de l'arbre est une combinaison spécifique.
 
 	\begin{exmp}
 		Prenons pour exemple l'arbre des possibilités d'un lancé de monnaie (en supposant que la monnaie ne tombe pas sur la tranche \cite{murray1993probability}). A chaque étape, deux choix s'offrent à nous :
@@ -19,19 +19,19 @@
 			\item la pièce tombe sur face
 		\end{itemize}
 
-    Supposons que l'on lance la pièce trois fois. On à donc un arbre ressemblant à ça :
+    Supposons que l'on lance la pièce trois fois. On a donc un arbre ressemblant à ça :
 
     \begin{figure}[H]
     	\begin{center}
     		\includestandalone[mode=image]{graphics/coin_tree}	
     	\end{center}
-    \caption{Arbre de possibilités d'un lancer de monnaie}
+    \caption{Arbre de possibilités d'un lancé de monnaie}
     \label{fig:coin_tree}
     \end{figure}
 
-    Grâce à cet arbre, à chaque fois qu'une pièce sera lancée jusqu'à trois fois d'affilés, la combinaison (ou chemin) figurera dans l'arbre.
+    Grâce à cet arbre, à chaque fois qu'une pièce sera lancée jusqu'à trois fois d'affilée, la combinaison (ou chemin) figurera dans l'arbre.
     
-    Chaque n\oe ud de l'arbre possède un sous-arbre (si il est pris comme racine), ce sous-arbre peut être vide.
+    Chaque n\oe ud de l'arbre possède un sous-arbre (s'il est pris comme racine), ce sous-arbre peut être vide.
 	\end{exmp}
 	
 	\begin{note}
@@ -44,7 +44,7 @@
 	   		\includestandalone[mode=image]{graphics/triangle}	
 	   	\end{center}
 	   	
-	   	\caption{Représentation simplifiée d'un arbre de possibilité}
+	   	\caption{Représentation simplifiée d'un arbre des possibilités}
 	   	\label{fig:arbre}
 	\end{figure}
 	 \newpage
@@ -54,9 +54,7 @@
 	L'idée est de pré-calculer tous les débuts jusqu'à un certaine profondeur de l'arbre pour ensuite créer des sous-arbres pouvant être parcourus parallèlement ou pondérer les sous-arbres générés pour les classer (par taille, \dots).
 	
 	\begin{exmp}
-		Dans le cas du lancé de monnaie, je sais que le premier lancer, me donne soit pile soit face. En connaissant cela, je peux séparer l'arbre en deux sous-arbres. Cela m'évite de recalculer la première profondeur
-		
-
+		Dans le cas du lancé de monnaie, je sais que le premier lancer, me donne soit pile soit face. En connaissant cela, je peux séparer l'arbre en deux sous-arbres. Cela m'évite de recalculer la première profondeur.
 		
 		\begin{figure}[H]
 			\minipage{0.49\textwidth}
@@ -75,11 +73,11 @@
 	\end{exmp}
 	
 	\begin{rem}
-		L'utilité des ouvertures dans un lancé de pièce (de monnaie) est très discutable, mais elle prends son sens lorsque
+		L'utilité des ouvertures dans un lancé de pièce (de monnaie) est très discutable, mais elle prends son sens lorsque :
 		
 		\begin{itemize}
-			\item le calcul de chaque n\oe ud est gourmand
-			\item la quantité de n\oe uds est importante
+			\item le calcul de chaque n\oe ud est gourmand en ressources.
+			\item la quantité de n\oe uds est importante.
 		\end{itemize}  
 	\end{rem}
 	
@@ -94,14 +92,14 @@
 		\label{fig:ouvertures}
 	\end{figure}
 		
-	Le triangle des possibilités est tronqué car le début a déjà été pré-calculé, c'est comme si l'on avait placé tout les sous-arbre côte à côte. Les ouvertures étant stockées sous forme de données, elles sont représentés par un carré.
+	Le triangle  est tronqué car le début a déjà été pré-calculé, c'est comme si l'on avait placé tout les sous-arbre côte à côte. Les ouvertures étant stockées sous forme de données, elles sont représentés par un carré.
 \newpage
 
 	\subsection{Finales}
 
-	Les finales permettent de prédire si le chemin emprunté dans l'arbre mène à une solution. Par conséquent, toutes les finales possibles sont pré-calculés et stockés sous forme de données.
+	Les finales permettent de prédire si le chemin emprunté dans l'arbre mène à une solution. Par conséquent, toutes les finales possibles sont pré-calculés et stockées sous forme de données.
 	
-	Grâce à cela, on peux connaître si le chemin choisi (ou combinaison actuelle) est possible sans avoir à finir le chemin en entier.
+	Grâce à cela, on peux connaître si le chemin choisi (ou combinaison actuelle) est possible sans avoir à finir le chemin en entier. L'arbre est donc tronquée en bas, réduisant l'espace à énumérer.
 	
 	Les finales sont représentés comme ceci :
 	
@@ -117,7 +115,7 @@
 	
 	\subsection{Objectif}
 	
-	Grâce à l'aide de ces deux approches. on peux donc diminuer drastiquement la quantité de calcul nécessaire en augmentant la quantité de données stockés. Par ailleurs, en adaptant la méthode de résolution on peux aussi réduire la profondeur totale de l'arbre.
+	Grâce à l'aide de ces deux approches. on peux donc diminuer drastiquement la quantité de calcul nécessaire en augmentant la quantité des données stockées. Par ailleurs, en adaptant la méthode de résolution on peux aussi réduire la profondeur totale de l'arbre.
 	
 	Par conséquent, on réduit non seulement ce qui reste à déterminer, mais aussi la taille de l'arbre dans son ensemble.
 	

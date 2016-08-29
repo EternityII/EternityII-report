@@ -2,7 +2,7 @@
 
 \section{Approche}
 
-	Dans cette partie, nous expliquerons quels sont les différents outils et stratégies mis en place pour permettre la résolution du problème.
+	Dans cette partie, nous expliquerons quel sont les différents outils et stratégies mis en place pour permettre la résolution du problème.
 	
 	La principale difficulté c'est que le jeu de base est trop complexe et ne permet pas de déterminer si l'approche actuelle est mieux adapté. Par conséquent, on utilisera des instances plus petites, qui sont des plateaux de plus petite taille ($4\times 4, 5\times 5, \dots$) qui respectent les deux lois d'Eternity II. 
 	
@@ -22,7 +22,7 @@
 	Il est possible de déterminer théoriquement, suivant l'instance actuelle, la taille du domaine pour chaque pièce ou case. En effet, en connaissant la moyenne de distribution des couleurs par pièces, il est possible d'évaluer la quantité de pièces à chaque case ou la quantité de pièces adjacentes à une autre pièce.
 	
 	\begin{exmp}
-		Pour un plateau de taille 4. La case en position $(O,O)$ à 4 pièces posables, La distribution des couleurs de ces pièces est equitable (voir \autoref{fig:4_pieces_on_bordure}), par conséquent, elles possèdent toutes les couleurs possibles pour les pièces de bord. Par conséquent, si l'on ne définit pas la pièce qui est placé sur la case en $(0,0)$, jusqu'à 8 pièces peuvent être placés en $(0,1)$ et $(1,0)$.
+		Pour un plateau de taille 4. La case en position $(O,O)$ a 4 pièces posables. La distribution des couleurs de ces pièces est équitable (voir \autoref{fig:4_pieces_on_bordure}), par conséquent, elles possèdent toutes les couleurs possibles pour les pièces de bord. Par conséquent, si l'on ne définit pas la pièce qui est placé sur la case en $(0,0)$, jusqu'à 8 pièces peuvent être placés en $(0,1)$ et $(1,0)$.
 	\end{exmp}
 	\begin{rem}
 		 Dans la pratique, chaque couleur n'à pas la même quantité de pièces. Par conséquent, ce résultat peux varier. Mais il permet d'évaluer le plafond supérieur du nombre de cas possible pour une corolle ou le nombre de cas possibles total.
@@ -52,7 +52,7 @@
 	\begin{figure}[H]
 		\minipage{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/parcours_spiral-out.png}
-		\caption{\textbf{diagonal} : parcours en spirale ouvrante du plateau}\label{fig:parcours_spiral-out}
+		\caption{\textbf{spirale out} : parcours en spirale ouvrante du plateau}\label{fig:parcours_spiral-out}
 		\endminipage\hfill
 		\minipage{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/parcours_quad-spiral-in.png}
@@ -77,7 +77,7 @@
 
 	\subsection{Smartforce}
 
-	Le principe de la smartforce repose sur la quantité de données qu'elle possède. Par conséquent, il est important que ces données soient bien organisées afin de pouvoir les traiter avec aise. Ces données sont organisées pour former des modèles. Chaque modèle peut être interprété comme un point de vue différent du problème. La liaison de plusieurs modèles variés fait la puissance de la smartforce.
+	Le principe de la smartforce repose sur la quantité des données qu'elle possède. Par conséquent, il est important que ces données soient bien organisées afin de pouvoir les traiter avec aise. Ces données sont organisées pour former des modèles. Chaque modèle peut être interprété comme un point de vue différent du problème. La liaison de plusieurs modèles variés fait la puissance de la smartforce.
 	
 	On note aussi l'introduction de nouvelles méthodes de parcours :
 	
@@ -133,13 +133,14 @@
 		\minipage[t]{0.29\textwidth}
 	
 		On décompose ensuite les 4 pièces :
+		
 		\begin{figure}[H]
 			\includestandalone[width=\linewidth]{graphics/4_pieces}
 			\caption{Couleurs des 4 pièces}\label{fig:4_pieces}
 		\end{figure}
 		\endminipage\hfill
 		\minipage[t]{0.29\textwidth}
-			On associe ensuite les couleurs et leur occurence à chaque bord :
+			On associe ensuite les couleurs et leur occurrence à chaque bord :
 			\begin{figure}[H]
 				\includestandalone[width=\linewidth]{graphics/4_pieces_on_bordure}
 				
@@ -148,7 +149,7 @@
 		\endminipage\hfill
 	\end{exmp}
 	
-	Cette simplification du problème nous permet de connaître plus simplement si deux cases adjacentes possèdent des matching non possibles.  Il suffit ensuite d'éliminer les pièces possèdent la couleur manquante.
+	Cette simplification du problème nous permet de connaître plus simplement si deux cases adjacentes possèdent des matching non possibles. Il suffit ensuite d'éliminer les pièces possédant la couleur manquante.
 		
 	\begin{exmp} Dans cet exemple, pour le deuxième cas [\autoref{fig:bordure_no_match}], toutes les pièces (orientées) ayant du rouge sur la face 2 ne peuvent être posées sur la case. Cela vaut aussi pour la case adjacente où la couleur verte ne peux être posée.
 			
@@ -157,7 +158,7 @@
 			
 			\begin{figure}[H]
 				\includestandalone[width=\linewidth]{graphics/bordure_match}
-				\caption{Cases adjacentes avec matching possible}\label{fig:bordure_match}
+				\caption{Cases adjacentes avec des matching possibles}\label{fig:bordure_match}
 			\end{figure}
 		
 		\endminipage\hfill
@@ -180,6 +181,10 @@
 	Dans une disposition CaPi, pour appliquer la propagation des données, on est obligé de faire le produit des domaines des cases adjacentes pour chaque matching (comparer les pièces possibles de chaque case entre eux). Ce qui s'avère très couteux et beaucoup de ces vérifications sont inutiles.
 	
 	Par contre, grâce à \textbf{BoCo}, il suffit de vérifier que la cardinalité des couleurs reste positive pour les deux bordures adjacentes. Seulement lorsque le nombre d'occurrences d'une couleur tombe à zéro, l'autre est invalidée (disons, la couleur rouge). Il suffit ensuite de récupérer les autres couleurs de la pièce qui disparait (car elle avait la couleur rouge), et de décrémenter les autres bordures de la case concernée. Si leur occurrence tombe à zéro, on met à jour leur bordure adjacente, sinon, la propagation s'arrête.
+	
+	\begin{note}
+		Le fait que la propagation soit plus efficace en BoCo est due à la relation qu'à la bordure avec son domaine (couleurs). Contrairement à CaPi où, à la fin de la résolution, une case ne possède plus qu'une seule pièce (et vice versa). Plusieurs bordures vont posséder une même couleur. Le modèle CaPi est en $1 \Leftrightarrow 1$ alors que le modèle BoCo est en $k \text{ (bordures) } \Leftrightarrow 1 \text{ (couleur)}$.
+	\end{note}
 
 	\begin{exmp}
 		Si une couleur disparait, alors toutes les pièces l'ayant ne peuvent plus être placées à cette case, par conséquent, les autres bords de la case ont (probablement) des couleurs qui disparaissent aussi (propagation de la disparition).
@@ -225,7 +230,7 @@
 	\end{figure}
 	
 	\begin{exmp}
-		Supposons qu'une corolle est seulement définie par sa forme. Prenons comme coordonnées $(0,1)$ et $(1,0)$ avec un hamming de 1. La forme des corolles sur ces coordonnées est identique. Elle à une forme de tétris.
+		Supposons qu'une corolle est seulement définie par sa forme. Prenons comme coordonnées $(0,1)$ et $(1,0)$ avec un hamming de 1. La forme des corolles sur ces coordonnées est identique, elle a une forme de tétris. Les deux corolles se superposent en $(0,0)$ et en $(1,1)$.
 		
 		Par conséquent, les corolle en coordonnées $(0,1)$ peuvent aller en $(1,0)$ et inversement.
 		
@@ -271,7 +276,7 @@
 	\end{figure}
 	
 	
-	Il est possible de déterminer le nombre de zones qui composent un plateau. Elle contient 2 variables, $T$ la taille du plateau $H$ le hamming. La quantité de zones $z$ est définie par la relation suivante :
+	Il est possible de déterminer le nombre de zones qui composent un plateau. Elle contient 2 variables, $T$ la taille du plateau et $H$ le hamming. La quantité de zones $z$ est définie par la relation suivante :
 	
 	\[
 		\begin{cases}
@@ -316,7 +321,7 @@
 	Les corolles concernées par les rotations sont les corolles qui ont au moins une pièce de bord ou de coin. Les pièces de bords et de coin ayant une orientation définie à cause de leur face grise.
 	
 	\begin{exmp}
-		Prenons la zone Z5 de la \autoref{fig:corolle_hamming_1}, suivant l'endroit où elle se trouve, la composition de la corolle est la même, mais \enquote{tournée} : \\
+		Prenons la zone $Z5$ de la \autoref{fig:corolle_hamming_1}, suivant l'endroit où elle se trouve, la composition de la corolle est la même, mais \enquote{tournée} : \\
 		\begin{minipage}{0.24\textwidth}
 			\begin{figure}[H]
 				\centering
@@ -353,7 +358,7 @@
 		La composition et la forme est la même, mais l'ordre est différent (voir \autoref{fig:corolle}).
 	\end{exmp}
 	
-	Pour résumer. Une corolle est une surface du plateau d'une certaine forme qui est pré-calculée. Une corolle pouvant être à plusieurs endroit, elle est dépendante d'une zone. Elle est composée d'une pièce principale qui la définit ainsi que d'une frontière. Une corolle est composée d'une corolle de hamming inférieur, se trouvant dans une zone englobant la celle de la corolle actuelle. Certaines corolles d'une même zone peuvent être différents à cause de leur \enquote{rotation}.
+	Pour résumer. Une corolle est une surface du plateau d'une certaine forme qui est pré-calculée. Une corolle pouvant être à plusieurs endroit, elle est dépendante d'une zone. Elle est composée d'une pièce principale qui la définit ainsi que d'une frontière. Une corolle est composée d'une corolle de hamming inférieur, se trouvant dans une zone englobant celle de la corolle actuelle. Certaines corolles d'une même zone peuvent être différentes à cause de leur \enquote{rotation}.
 	
 	Afin que la corolle soit correcte, il est nécessaire de connaître les informations suivantes :
 	\begin{itemize}
@@ -411,7 +416,7 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics{images/corolle_dynamique}
-			\caption[Répartition des pièces sur un plateau de taille 7]{Répartition des pièces sur un plateau de taille 7}
+			\caption{Répartition des pièces sur un plateau de taille 7}
 			\label{fig:corolle_dynamique}
 		\end{figure}
 		
@@ -419,21 +424,21 @@
 			 Il y a 25 pièces intérieures, 4 rotation sont possibles par pièce, par conséquent, 100 \enquote{pièces} sont posables sur une case d'intérieur.
 		\end{note}
 		
-		Dans cette figure, il n'est pas nécessaire de calculer la corolle en Hamming 1 ou plus, car ce ne sera que tout les cas possibles, on appèle donc le Hamming 1 le marécage.
+		Dans cette figure, il n'est pas nécessaire de calculer la corolle en Hamming 1 ou plus, car ce ne sera que tout les cas possibles, on appelle donc H1 le marécage.
 		
-		Placons maintenant la pièce 0 en $(0,0)$ 
+		Plaçons maintenant la pièce 0 en $(0,0)$ 
 		
 		\begin{figure}[H]
 			\centering
 			\includegraphics{images/corolle_dynamique_agrandissement}
-			\caption[Répartition des pièces sur un plateau de taille 7]{Répartition des pièces sur un plateau de taille 7}
+			\caption{Répartition des pièces sur un plateau de taille 7 avec la pièce 0 en $(0,0)$}
 			\label{fig:corolle_dynamique_agrandissement}
 		\end{figure}
 		
 		La case en $(1,1)$ voit son domaine réduit. Par conséquent il est malin d'agrandir la corolle vers cette case car elle pourrait nous fournir plus de données.
 
 		\begin{note}
-			Cet exemple est naïf mais illustre bien le principe de corolle dynamique et de marécage
+			Cet exemple est naïf mais illustre bien le principe de corolle dynamique et de marécage.
 		\end{note}
 	\end{exmp}
 	\newpage
@@ -458,23 +463,23 @@
 			\caption{Placement de 5 corolles sur un plateau de taille 7 (ouvertures)}\label{fig:corolle_placement}
 		\end{figure}
 		
-		Lorsque plusieurs corolles se superposent (les zones foncées), il y à une très forte contrainte à cet endroit, car la pièce qui s'y trouve doit être possible dans toutes ces corolles.
+		Lorsque plusieurs corolles se superposent, il y à une très forte contrainte à cet endroit, car la pièce qui s'y trouve doit être possible dans toutes ces corolles.
 	\end{exmp}
 	
 	\begin{rem}
-		Actuellement, il est plus bénéfique de placer moins de corolles sur le plateau pour laisser place aux fermetures.	
+		Actuellement, il est plus bénéfique de placer moins de corolles sur le plateau pour laisser place aux finales.	
 	\end{rem}
 \newpage	
 
-	\subsection{Fermetures}
+	\subsection{Finales}
 	
-		Pour les fermetures, le principe est le même que pour les ouvertures, mais le but est différent : le but est de déterminer facilement si la résolution actuelle est viable. Par conséquent, il faut limiter au plus le nombre de fermetures. afin de déterminer la réalisation du problème le plus rapidement possible.
+		Pour les finales, le principe est le même que pour les ouvertures, mais le but est différent : le but est de déterminer facilement si la résolution actuelle est viable. Par conséquent, il faut limiter au plus le nombre de finales, afin de déterminer la réalisation du problème le plus rapidement possible.
 		
 		Par conséquent, le placement des corolles se fait sur les coins (car il n'y à que 4 pièces qui peuvent y être placés)
 		
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.5\linewidth]{images/corolle_placement_fermetures}
-			\caption{Placement des corolles sur un plateau de taille 7 (fermetures)}
-			\label{fig:corolle_placement_fermetures}
+			\includegraphics[width=0.5\linewidth]{images/corolle_placement_finales}
+			\caption{Placement des corolles sur un plateau de taille 7 (finales)}
+			\label{fig:corolle_placement_finales}
 		\end{figure}

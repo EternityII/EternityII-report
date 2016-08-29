@@ -2,11 +2,11 @@
 
 Dans cette partie, sera expliqué le fonctionnement de chaque application, en particulier, le framework développé pour la smartforce.
 
-Le but est de fournir assez d'information afin de faciliter le maintient et la manipulation des applications développés.
+Le but est de fournir assez d'information afin de faciliter le maintient et la manipulation des applications développées.
 
 	\subsection{EternityII (bruteforce)}
 	
-Cette application à été bâtie de façon a pouvoir rapidement intégrer de nouvelles méthodes de parcours. Elle intègre aussi différents outils de manipulation de fichiers.
+Cette application a été bâtie de façon à pouvoir rapidement intégrer de nouvelles méthodes de parcours. Elle intègre aussi différents outils de manipulation de fichiers.
 
 Son fonctionnement est simple. Chaque classe accomplit une certaine tâche spécifique \autocite{wiki:kissprinciple}.
 
@@ -14,7 +14,7 @@ D'abord, on charge le fichier d'instance (main.cpp) grâce à la classe \lstinli
 
 Une fois les données récupérés du fichier, le \lstinline[language=c++]|Jeu| est initialisé (les différentes \lstinline[language=c++]|Pieces| ainsi que le plateau).
 
-Le jeu est ensuite envoyé à \lstinline[language=c++]|Generator| qui va initialise les données nécessaires à la résolution. 
+Le jeu est ensuite envoyé à \lstinline[language=c++]|Generator| qui va initialiser les données nécessaires à la résolution. 
 
 Grâce à la fonction  \lstinline[language=c++]|Genetrator::multipleGeneration| ou directement  \lstinline[language=c++]|G::parcoursBruteforce|, on définit le type de parcours. En fonction du type de parcours, le chemin est initialisé par  \lstinline[language=c++]|G::coordinatesCreator|. 
 
@@ -37,7 +37,7 @@ Si un fichier est déjà ouvert, celle-ci vérifie si ces données sont identiqu
 	\item la zone de la corolle (représentée sous forme de coordonnées $(x,y)$)
 \end{itemize}
 	
-	Si aucun fichier n'est ouvert, ou que l'une de ces données est différente, un nouvel objet \lstinline[language=c++]|FileOut| est crée et remplace le précédent.
+	Si aucun fichier n'est ouvert ou que l'une de ces données est différente, un nouvel objet \lstinline[language=c++]|FileOut| est créé et remplace le précédent.
 	
 	\lstinline[language=c++]|FileOut| va alors créer ou ouvrir (en supprimant le contenu) le fichier et écrire 4 lignes contenant toutes les informations de la corolle. 
 	
@@ -51,7 +51,7 @@ Si un fichier est déjà ouvert, celle-ci vérifie si ces données sont identiqu
 	\end{lstlisting}
 	\end{exmp}
 	
-	Seront ensuite écrit la ligne contenant les information de la corolle :
+	Sera ensuite écrit la ligne contenant les information de la corolle :
 	
 	\begin{exmp}
 		\lstinline[language=bash]{0:0;5:1;6:0;;|3;4;5;6;7;;;;;;;0}
@@ -69,7 +69,7 @@ Enfin \lstinline[language=python]|display_plate()| qui affiche ou enregistre, en
 
 	\subsection{EternityII--corolle\_rotator}
 	
-Lorsqu'une corolle est tournée, non seulement les pièces sont tournées, mais l'ordre de parcours change aussi (voir \autoref{fig:corolle_zone_orientee} et \autoref{fig:corolle}). Par conséquent, il suffit, non seulement de tourner les pièces \lstinline[language=python]|pieces_rotate()| mais aussi de \enquote{shifter} les pièces.
+Lorsqu'une corolle est tournée, non seulement les pièces sont tournées, mais l'ordre de parcours change aussi (voir \autoref{fig:corolle_zone_orientee} et \autoref{fig:corolle}). Par conséquent, il suffit non seulement de tourner les pièces \lstinline[language=python]|pieces_rotate()| mais aussi de \enquote{shifter} les pièces.
 
 \begin{exmp}
 	Prenons une corolle en $(1,1)$ (Z5 dans la \autoref{fig:corolle_zones_h_1}).
@@ -126,7 +126,7 @@ Cette action est gérée par \lstinline[language=python]|pieces_shift|  pour les
 
 \subsection{EternityII(smartforce)}
 
-Le code source de ce code se trouve sur : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII/commits/feature/framework_refactoring}
+Le code source se trouve sur : \url{https://gitlab.info-ufr.univ-montp2.fr/EternityII/EternityII/commits/feature/framework_refactoring}
 
 Cette application est composée de deux parties :
 
@@ -154,7 +154,7 @@ Le framework est décomposé en 4 parties distinctes :
 	\item Les Modèles
 	\item Les Contraintes
 	\item Le \enquote{PathFinder}
-	\item Le solveur
+	\item Le Solveur
 \end{enumerate}
 
 
@@ -164,7 +164,7 @@ Les modèles sont contraints par les contraintes, ceux-ci sont chargés de la pr
 
 \paragraph{Les modèles}
 
-Un modèle est un objet chargé de la manipulation d'une donnée lors de la résolution du problème. Il avertit les modèles auquel il est connecté lors d'un changement utile dans ses données.
+Un modèle est un objet chargé de la manipulation d'une donnée lors de la résolution du problème. Il avertit les modèles auquel il est connecté lors d'un changement utile dans ses données via les contraintes.
 
 \paragraph{Le Pathfinder}
 
@@ -172,7 +172,7 @@ Le PathFinder est connecté à des modèles de référence. Grâce à eux, il d�
 
 \paragraph{Le solveur}
 
-Le solveur progresse dans l'arbre, à chaque n\oe ud il récupère grâce au PathFinder le n\oe ud suivant à atteindre. Il envoie ensuite la décision aux modèles de références. Si le Pathfinder n'en trouve pas, il envoie alors un ordre de rollback vers le n\oe uds précédent.
+Le solveur progresse dans l'arbre, à chaque n\oe ud il récupère grâce au PathFinder le n\oe ud suivant à atteindre. Il envoie ensuite la décision aux modèles de références. Si le Pathfinder n'en trouve pas, il envoie alors un ordre de rollback vers le n\oe ud précédent.
 \newpage
 
 \subsubsection{Fonctionnement}
@@ -189,6 +189,8 @@ Il utilise les ordres suivants :
 	Une fois que toutes les valeurs ont été testés pour la variable actuelle, on fait un rollback total pour revenir au n\oe uds parent (qui déniera le n\oe uds actuel comme choix de variable).
 \end{description}
 
+Il contient deux modèles qui sont les points d'entrée vers les autres modèles. C'est à ces deux modèles que les données relatives aux choix de variable et de valeur vont être envoyées.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{images/parcours_noeuds}
@@ -196,9 +198,6 @@ Il utilise les ordres suivants :
 	 En bleu, la progression d'un noeud à l'autre.\\ En rouge, un rollback partiel. \\ En noir, un rollback total.\\}
 \label{fig:parcoursnoeuds}
 \end{figure}
-
-
-Il contient deux modèles qui sont les points d'entrée vers les autres modèles. C'est à ces deux modèles que les données relatives aux choix de variable et de valeur vont être envoyées.
 
 Le \textbf{pathfinder} aide le solveur à prendre des décisions. Il est associés à classes, l'un pour le choix de variable (ex: cases en rowscan), l'autre pour le choix de valeur (ex: pièces en lexico). Il contient 4 ordres :
 \begin{description}
@@ -208,10 +207,10 @@ Le \textbf{pathfinder} aide le solveur à prendre des décisions. Il est associ�
 	\item[nextValue] renvoi une valeur suivant la stratégie de utilisée.
 \end{description}
 
-Il est important de noter que le pathfinder et le solveur doivent utiliser les même données pour les valeurs et variables, lorsque ceux-ci sont envoyés au modèles.
+Il est important de noter que le pathfinder et le solveur doivent utiliser les mêmes données pour les valeurs et variables, lorsque ceux-ci sont envoyés aux modèles.
 
 \begin{exmp}
-	Afin d'éviter, par exemple, d'envoyer les identifiants de BoCo à un solveur CaPi
+	Afin d'éviter, par exemple, d'envoyer les identifiants de BoCo à un solveur CaPi.
 \end{exmp}
 
 \subsubsection{Modèles et contraintes}
